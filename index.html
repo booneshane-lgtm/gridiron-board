@@ -115,6 +115,31 @@
   .foot h3{font-family:"Barlow Condensed";font-size:20px;margin:0 0 6px}
   .empty{padding:24px;text-align:center;color:var(--ink-3)}
   .grid2{margin-top:14px}
+  #stack{display:flex;flex-direction:column}
+  #boardHost{order:2} #panels{order:1}
+  #stack.split{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:16px;align-items:start}
+  #stack.split #boardHost{order:1;min-width:0}
+  #stack.split #panels{order:2;display:flex;flex-direction:column;gap:12px;position:sticky;top:8px;max-height:calc(100vh - 16px);overflow:auto;margin-top:14px}
+  #stack.split .panel{padding:12px 14px}
+  #stack.split .panel h2{font-size:20px}
+  #stack.split .hint{display:none}
+  #stack.split .prow{gap:6px}
+  #stack.split .prow label{font-size:12px}
+  #stack.split .prow select,#stack.split .prow input{padding:4px 6px;font-size:13px}
+  #stack.split .sum{grid-template-columns:1fr 1fr 1fr;gap:6px}
+  #stack.split .sum b{font-size:18px}
+  #stack.split .sum span{font-size:11px}
+  #stack.split .leg{font-size:13px;gap:6px}
+  #stack.split .hc li{font-size:13px}
+  #stack.split .day{font-size:19px}
+  #stack.split .pk .lbl{max-width:120px}
+  #stack.split .pk button{padding:2px 5px}
+  #stack.split .hdr,#stack.split .row{grid-template-columns:62px minmax(140px,1fr) minmax(230px,1.5fr) minmax(100px,.7fr) minmax(230px,1.5fr) 26px}
+  .mini{border-collapse:collapse;font-size:12px;width:100%}
+  .mini th{font-weight:500;color:var(--ink-3);font-size:10px;text-align:left;padding:0 4px 2px 0}
+  .mini td{padding:1px 3px 1px 0;white-space:nowrap;font-size:11.5px}
+  .mini td:first-child{color:var(--ink-2);font-weight:600}
+  @media (max-width:1100px){#stack.split{grid-template-columns:1fr}#stack.split #panels{position:static;max-height:none;order:1}#stack.split #boardHost{order:2}}
   .slipfab{position:fixed;right:18px;bottom:18px;background:var(--navy);color:#fff;padding:10px 16px;border-radius:24px;font-weight:600;font-size:14px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.25);display:none;z-index:30}
   .slipfab i{font-style:normal;background:var(--gold);color:var(--navy);border-radius:12px;padding:1px 8px;margin-right:4px}
   #keyRow{display:none;flex-wrap:wrap;gap:10px;align-items:center;flex-basis:100%}
@@ -140,6 +165,7 @@
   }
   @media (max-width:980px){
     .hdr{display:none}
+    .row .bk3{grid-column:1/-1}
     .book .bn{display:block}
     .controls{position:static}
     .row{grid-template-columns:1fr 1fr;}
@@ -224,10 +250,10 @@
     <div id="keyRow"><input type="password" id="apiKey" placeholder="The Odds API key (leave blank for the built-in key)" autocomplete="off"><a href="https://the-odds-api.com" target="_blank" rel="noopener" style="font-size:13px;color:var(--ink-2)">Get a free key</a></div>
     <div class="st" id="refreshStatus">Lines shown are from the build snapshot (Thu Sep 3, 2026). A refresh pulls live BetMGM, DraftKings and FanDuel spreads, totals and money lines for every NFL and NCAAF game and re-runs the projections. A green dot next to a number means it came from a live refresh.</div>
   </div>
-  <div id="stack" style="display:flex;flex-direction:column">
-  <div id="boardHost" style="order:2"></div>
+  <div id="stack">
+  <div id="boardHost"></div>
 
-  <div class="grid2" id="panels" style="order:1">
+  <div class="grid2" id="panels">
     <section class="panel" id="parlay">
       <h2>Parlay builder</h2>
       <p class="hint">Pick a leg count and the builder pulls the highest-confidence legs across the visible slate. At most two legs from one game (e.g., money line + total). You can also add legs by hand from any row.</p>
@@ -477,6 +503,7 @@ function topConf(g){const an=A[g.id];return Math.max(an.mlProb*100,an.atsConf,an
 function applyView(){
   document.getElementById("boardHost").style.display=view==="parlay"?"none":"";
   document.getElementById("panels").style.display=view==="singles"?"none":"";
+  document.getElementById("stack").classList.toggle("split",view==="both");
   const fab=document.getElementById("slipFab");fab.style.display=(slip.length&&view==="singles")?"block":"none";fab.querySelector("i").textContent=slip.length;
 }
 function showSlip(){setView("both");setTimeout(()=>document.getElementById("parlay").scrollIntoView({behavior:"smooth"}),50)}
@@ -498,7 +525,7 @@ function render(){
       h.innerHTML=sort==="time"?dayLabel(dk)+' <small>'+(g.out?"beyond the 7-day window":"")+'</small>':'All games <small>sorted by '+(sort==="conf"?"confidence":"closest spread")+'</small>';
       host.appendChild(h);
       board=document.createElement("div");board.className="board";
-      board.innerHTML='<div class="hdr"><div>Kick</div><div>Matchup</div><div>BetMGM</div><div>DraftKings</div><div>FanDuel</div><div>Projected</div><div>Picks &amp; confidence</div><div></div></div>';
+      board.innerHTML=(view==="both"?'<div class="hdr"><div>Kick</div><div>Matchup</div><div>Lines by book</div><div>Projected</div><div>Picks &amp; confidence</div><div></div></div>':'<div class="hdr"><div>Kick</div><div>Matchup</div><div>BetMGM</div><div>DraftKings</div><div>FanDuel</div><div>Projected</div><div>Picks &amp; confidence</div><div></div></div>');
       host.appendChild(board);
     }
     board.appendChild(rowEl(g));
@@ -506,6 +533,11 @@ function render(){
   renderSlip(); renderHC();
 }
 const BOOKNAME={mgm:"BetMGM",dk:"DraftKings",fd:"FanDuel"};
+function bookMini(g){
+  const c=x=>x.c?'<sup class="c">c</sup>':(x.live?'<sup class="live">●</sup>':'');const e=x=>x.est?'<sup class="c">est</sup>':'';
+  return '<table class="mini"><tr><th></th><th>Spread</th><th>Total</th><th>ML</th></tr>'+["mgm","dk","fd"].map(b=>{const sp=bookVal(g,b,"s"),t=bookVal(g,b,"t"),ma=bookVal(g,b,"ma"),mh=bookVal(g,b,"mh");
+    return '<tr><td>'+BOOKNAME[b].replace("DraftKings","DK").replace("BetMGM","MGM").replace("FanDuel","FD")+'</td><td>'+abbr(g.h)+' '+fmtSpread(sp.v)+c(sp)+'</td><td>'+t.v+c(t)+'</td><td>'+fmtAm(ma.v)+'/'+fmtAm(mh.v)+e(mh)+'</td></tr>'}).join("")+'</table>';
+}
 function bookCell(g,b){
   const s=bookVal(g,b,"s"),t=bookVal(g,b,"t"),ma=bookVal(g,b,"ma"),mh=bookVal(g,b,"mh");
   const c=x=>x.c?'<sup class="c">c</sup>':(x.live?'<sup class="live">●</sup>':'');
@@ -520,7 +552,7 @@ function pickRow(g,type,side,label,conf,lo,hi){
   const on=inSlip(g.id,type);
   if(!inRange(conf)){ if(confMode==="picks")return ''; }
   return '<div class="pk'+(inRange(conf)?'':' dim')+'"><span class="lbl">'+label+'</span><span class="bar '+confClass(conf)+'"><i style="width:'+pctBar(conf,lo,hi)+'%"></i></span><span class="pc">'+Math.round(conf)+'%</span>'+
-    '<button class="'+(on?"in":"")+'" onclick="toggleLeg('+g.id+',\''+type+'\',\''+side+'\')">'+(on?"In slip":"+ Slip")+'</button></div>';
+    '<button class="'+(on?"in":"")+'" title="'+(on?"Remove from slip":"Add to slip")+'" onclick="toggleLeg('+g.id+',\''+type+'\',\''+side+'\')">'+(view==="both"?(on?"✓":"+"):(on?"In slip":"+ Slip"))+'</button></div>';
 }
 function rowEl(g){
   const an=A[g.id]; const d=document.createElement("div"); d.className="row"+(g.out?" outside":""); d.dataset.id=g.id;
@@ -530,7 +562,7 @@ function rowEl(g){
   d.innerHTML=
     '<div class="t">'+timeLabel(g.k)+'<small>'+(g.lg==="NFL"?'<span class="tag nfl">NFL</span>':'<span class="tag cfb">NCAA</span>')+(g.out?' beyond 7d':'')+'</small></div>'+
     '<div class="teams"><div class="tm"><span>'+rk(0)+g.a+'</span><span>'+(g.n?'':'away')+'</span></div><div class="tm"><span>'+rk(1)+g.h+'</span><span>'+(g.n?'neutral':'home')+'</span></div>'+(g.n?'<div class="vs">'+g.n+'</div>':'')+'</div>'+
-    '<div>'+bookCell(g,"mgm")+'</div><div>'+bookCell(g,"dk")+'</div><div>'+bookCell(g,"fd")+'</div>'+
+    (view==="both"?'<div class="bk3">'+bookMini(g)+'</div>':'<div>'+bookCell(g,"mgm")+'</div><div>'+bookCell(g,"dk")+'</div><div>'+bookCell(g,"fd")+'</div>')+
     '<div class="pred"><div class="sc">'+g.p[0]+'<span>–</span>'+g.p[1]+'</div><small>'+(an.margin>=0?nameShort(g.h):nameShort(g.a))+' by '+Math.abs(an.margin)+' · '+an.total+' pts</small></div>'+
     '<div class="picks">'+
       pickRow(g,"ml",an.mlSide,mlNm+" ML",an.mlProb*100,50,100)+
