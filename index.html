@@ -265,7 +265,7 @@
   <div class="grid2" id="panels">
     <section class="panel" id="parlay">
       <h2>Parlay builder</h2>
-      <p class="hint">Pick a leg count and the builder pulls the highest-confidence legs across the visible slate. At most two legs from one game (e.g., money line + total). You can also add legs by hand from any row.</p>
+      <p class="hint">Pick a leg count and the builder pulls the highest-confidence legs across the visible slate. At most two legs from one game, and only money line + total or spread + total; money line and spread from the same game can't be combined. You can also add legs by hand from any row.</p>
       <div class="prow">
         <label>Legs
           <select id="legCount">
@@ -489,11 +489,15 @@ function makeLeg(g,type,side){
   else if(type==="1h"){const sp=side==="h"?an.h1Spread:-an.h1Spread;label="1H "+nm+" "+fmtSpread(sp);prob=an.h1Conf/100;odds=-110}
   return {gid:g.id,type,side,label,prob,odds,game:nameShort(g.a)+" @ "+nameShort(g.h),lg:g.lg};
 }
+const SIDE_TYPES=["ml","ats","1h"];
+function compatible(existing,type){return !(SIDE_TYPES.includes(type)&&existing.some(t=>SIDE_TYPES.includes(t)))}
 function inSlip(gid,type){return slip.some(l=>l.gid===gid&&l.type===type)}
 function toggleLeg(gid,type,side){
   const i=slip.findIndex(l=>l.gid===gid&&l.type===type);
   if(i>=0){slip.splice(i,1)}else{
-    if(slip.filter(l=>l.gid===gid).length>=2){flash("Only two legs from one game.");return}
+    const same=slip.filter(l=>l.gid===gid);
+    if(same.length>=2){flash("Only two legs from one game.");return}
+    if(!compatible(same.map(l=>l.type),type)){flash("Money line and spread from the same game can't be combined. Pair either one with the total instead.");return}
     if(slip.length>=10){flash("Ten legs max.");return}
     slip.push(makeLeg(G.find(g=>g.id===gid),type,side));
   }
@@ -641,8 +645,7 @@ function buildParlay(){
     if(slip.length>=n)break;
     if((perGame[l.gid]||0)>=2)continue;
     if(slip.some(s=>s.gid===l.gid&&s.type===l.type))continue;
-    // avoid two 1H/full spread legs on the same side of the same game
-    if(l.type==="1h"&&slip.some(s=>s.gid===l.gid&&s.type==="ats"))continue;
+    if(!compatible(slip.filter(s=>s.gid===l.gid).map(s=>s.type),l.type))continue;
     slip.push(l);perGame[l.gid]=(perGame[l.gid]||0)+1;
   }
   if(view==="singles")setView("both");
