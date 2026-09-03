@@ -234,7 +234,17 @@
         <option value="games">Hide games with no pick in range</option>
       </select>
     </label>
-    <label><input type="checkbox" id="outsideChk"> Show NFL games beyond 7 days (Sep 13–14)</label>
+    <label>Dates
+      <select id="winSel">
+        <option value="0-0">Today</option>
+        <option value="1-1">Tomorrow only</option>
+        <option value="0-1">Today + tomorrow</option>
+        <option value="0-2">Next 3 days</option>
+        <option value="0-6" selected>Next 7 days</option>
+        <option value="0-13">Next 14 days</option>
+        <option value="0-9999">All games with odds</option>
+      </select>
+    </label>
     <label><input type="checkbox" id="fbsOnlyChk"> Hide FCS-opponent games</label>
     <input type="text" id="q" placeholder="Find a team…" style="width:170px">
     <div class="spacer"></div>
@@ -245,10 +255,9 @@
   <div class="refresh" id="refreshBox">
     <b>Odds</b>
     <button class="btn" id="refreshBtn">Refresh all odds</button>
-    <button class="btn ghost" id="revertBtn" title="Go back to the lines pulled when this file was built">Use built-in lines</button>
     <a href="#" id="keyToggle" style="font-size:13px;color:var(--ink-2)">Use a different API key</a>
     <div id="keyRow"><input type="password" id="apiKey" placeholder="The Odds API key (leave blank for the built-in key)" autocomplete="off"><a href="https://the-odds-api.com" target="_blank" rel="noopener" style="font-size:13px;color:var(--ink-2)">Get a free key</a></div>
-    <div class="st" id="refreshStatus">Lines shown are from the build snapshot (Thu Sep 3, 2026). A refresh pulls live BetMGM, DraftKings and FanDuel spreads, totals and money lines for every NFL and NCAAF game and re-runs the projections. A green dot next to a number means it came from a live refresh.</div>
+    <div class="st" id="refreshStatus">Lines shown are from the build snapshot (Thu Sep 3, 2026). A refresh pulls live BetMGM, DraftKings and FanDuel spreads, totals and money lines for every NFL and NCAAF game the books have posted — including later weeks — and re-runs the projections. A green dot next to a number means it came from a live refresh. Use the Dates dropdown to change the window.</div>
   </div>
   <div id="stack">
   <div id="boardHost"></div>
@@ -457,7 +466,11 @@ function confClass(c){return c>=60?"":c>=54?"mid":"low"}
 function pctBar(c,lo,hi){return Math.max(6,Math.min(100,(c-lo)/(hi-lo)*100))}
 
 /* ---------- STATE ---------- */
-let view="singles", league="CFB", sort="time", showOut=false, hideFcs=false, query="", confMin=0, confMax=100, confMode="picks";
+let view="singles", league="CFB", sort="time", showOut=true, winFrom=0, winTo=6, hideFcs=false, query="", confMin=0, confMax=100, confMode="picks";
+const isOut=g=>dayOffset(g)>6;
+function todayKeyET(){const et=new Date(new Date().toLocaleString("en-US",{timeZone:"America/New_York"}));const pad=n=>String(n).padStart(2,"0");return et.getFullYear()+"-"+pad(et.getMonth()+1)+"-"+pad(et.getDate())}
+function dayOffset(g){const t=new Date(todayKeyET()+"T00:00").getTime();const d=new Date(g.k.slice(0,10)+"T00:00").getTime();return Math.round((d-t)/86400000)}
+const inWindow=g=>{const o=dayOffset(g);return o>=winFrom&&o<=winTo};
 const inRange=c=>c>=confMin-1e-9&&c<=confMax+1e-9;
 const BASE=JSON.parse(JSON.stringify(G));
 const slip=[]; // {gid,type,side,label,prob,odds}
@@ -492,7 +505,7 @@ function flash(msg){const n=document.getElementById("slipNote");n.style.display=
 function visibleGames(){
   return G.filter(g=>{
     if(league!=="ALL"&&g.lg!==league)return false;
-    if(g.out&&!showOut)return false;
+    if(!inWindow(g))return false;
     if(hideFcs&&g.fcs)return false;
     if(query&&!(g.a+" "+g.h).toLowerCase().includes(query.toLowerCase()))return false;
     if(confMode==="games"){const an=A[g.id];if(![an.mlProb*100,an.atsConf,an.ouConf,an.h1Conf].some(inRange))return false}
@@ -515,14 +528,14 @@ function render(){
   if(sort==="conf")gs=gs.slice().sort((x,y)=>topConf(y)-topConf(x));
   else if(sort==="spread")gs=gs.slice().sort((x,y)=>Math.abs(x.s)-Math.abs(y.s));
   else gs=gs.slice().sort((x,y)=>x.k.localeCompare(y.k)||x.id-y.id);
-  if(!gs.length){host.innerHTML='<div class="board"><div class="empty">Nothing matches those filters.</div></div>';renderSlip();renderHC();return}
+  if(!gs.length){host.innerHTML='<div class="board"><div class="empty">No games in this date window with the current filters. Widen the Dates dropdown, or hit Refresh all odds to pull games the books have posted.</div></div>';renderSlip();renderHC();return}
   let curDay=null, board=null;
   gs.forEach(g=>{
     const dk=sort==="time"?dayKey(g.k):"all";
     if(dk!==curDay){
       curDay=dk;
       const h=document.createElement("div");h.className="day";
-      h.innerHTML=sort==="time"?dayLabel(dk)+' <small>'+(g.out?"beyond the 7-day window":"")+'</small>':'All games <small>sorted by '+(sort==="conf"?"confidence":"closest spread")+'</small>';
+      h.innerHTML=sort==="time"?dayLabel(dk)+' <small>'+(isOut(g)?"beyond the next 7 days":"")+'</small>':'All games <small>sorted by '+(sort==="conf"?"confidence":"closest spread")+'</small>';
       host.appendChild(h);
       board=document.createElement("div");board.className="board";
       board.innerHTML=(view==="both"?'<div class="hdr"><div>Kick</div><div>Matchup</div><div>Lines by book</div><div>Projected</div><div>Picks &amp; confidence</div><div></div></div>':'<div class="hdr"><div>Kick</div><div>Matchup</div><div>BetMGM</div><div>DraftKings</div><div>FanDuel</div><div>Projected</div><div>Picks &amp; confidence</div><div></div></div>');
@@ -555,7 +568,7 @@ function pickRow(g,type,side,label,conf,lo,hi){
     '<button class="'+(on?"in":"")+'" title="'+(on?"Remove from slip":"Add to slip")+'" onclick="toggleLeg('+g.id+',\''+type+'\',\''+side+'\')">'+(view==="both"?(on?"✓":"+"):(on?"In slip":"+ Slip"))+'</button></div>';
 }
 function rowEl(g){
-  const an=A[g.id]; const d=document.createElement("div"); d.className="row"+(g.out?" outside":""); d.dataset.id=g.id;
+  const an=A[g.id]; const d=document.createElement("div"); d.className="row"+(isOut(g)?" outside":""); d.dataset.id=g.id;
   const rk=(i)=>g.r&&g.r[i]?'<span class="rk">'+g.r[i]+'</span>':'';
   const mlNm=an.mlSide==="h"?nameShort(g.h):nameShort(g.a);
   const atsNm=an.atsSide==="h"?nameShort(g.h):nameShort(g.a); const atsSp=an.atsSide==="h"?g.s:-g.s;
@@ -611,7 +624,7 @@ function removeLeg(i){slip.splice(i,1);render();applyView()}
 function buildParlay(){
   const n=+document.getElementById("legCount").value; const lg=document.getElementById("parlayLg").value; const types=document.getElementById("parlayTypes").value; const minMl=Number.isFinite(+document.getElementById("minMl").value)&&document.getElementById("minMl").value!==""?+document.getElementById("minMl").value:-100000;
   const pool=[];
-  G.filter(g=>(lg==="ALL"||g.lg===lg)&&(!g.out||showOut)&&(!hideFcs||!g.fcs)).forEach(g=>{
+  G.filter(g=>(lg==="ALL"||g.lg===lg)&&inWindow(g)&&(!hideFcs||!g.fcs)).forEach(g=>{
     const an=A[g.id];
     const ok=t=>types==="all"||(types==="mlspread"&&(t==="ml"||t==="ats"))||(types==="spreadtotal"&&(t==="ats"||t==="ou"))||(types==="ml"&&t==="ml");
     const add=l=>{if(l.odds>=minMl)pool.push(l)};
@@ -679,7 +692,7 @@ async function refreshOdds(){
   try{if(typed)localStorage.setItem("oddsApiKey",typed);else localStorage.removeItem("oddsApiKey")}catch(e){}
   const btn=document.getElementById("refreshBtn");btn.disabled=true;setStatus("Fetching live lines…");
   const bookMap={betmgm:"mgm",draftkings:"dk",fanduel:"fd"};
-  let matched=0,remaining=null,errors=[];
+  let matched=0,added=0,remaining=null,errors=[];
   for(const [sport,lg] of [["americanfootball_nfl","NFL"],["americanfootball_ncaaf","CFB"]]){
     const url="https://api.the-odds-api.com/v4/sports/"+sport+"/odds/?regions=us&markets=h2h,spreads,totals&oddsFormat=american&bookmakers=betmgm,draftkings,fanduel&apiKey="+encodeURIComponent(key);
     let res;try{res=await fetch(url)}catch(e){errors.push(lg+": network error ("+e.message+")");continue}
@@ -693,6 +706,7 @@ async function refreshOdds(){
         if(teamMatch(g.a,e.home_team)&&teamMatch(g.h,e.away_team)){ev=e;swap=true;break}
       }
       if(!ev)continue;
+      ev._matched=true;
       const books={};const ss=[],ts=[];
       for(const bk of ev.bookmakers||[]){
         const code=bookMap[bk.key];if(!code)continue;const o={live:true};
@@ -717,21 +731,42 @@ async function refreshOdds(){
       if(ev.commence_time){const d=new Date(ev.commence_time);const et=new Date(d.toLocaleString("en-US",{timeZone:"America/New_York"}));const pad=n=>String(n).padStart(2,"0");g.k=et.getFullYear()+"-"+pad(et.getMonth()+1)+"-"+pad(et.getDate())+"T"+pad(et.getHours())+":"+pad(et.getMinutes())}
       matched++;
     }
+    // add games from the API that aren't in the built-in list (later weeks, extra matchups)
+    const ALIAS_INV={};Object.keys(ALIAS).forEach(k=>ALIAS_INV[norm(ALIAS[k])]=k);
+    const shortName=n=>{const key=norm(n);if(ALIAS_INV[key])return ALIAS_INV[key];const hit=Object.keys(ALIAS_INV).find(k=>key.startsWith(k));return hit?ALIAS_INV[hit]:n};
+    for(const ev of events){
+      if(ev._matched||!ev.home_team||!ev.away_team)continue;
+      const books={};const ss=[],ts=[];
+      for(const bk of ev.bookmakers||[]){
+        const code=bookMap[bk.key];if(!code)continue;const o={live:true};
+        for(const m of bk.markets||[]){for(const oc of m.outcomes||[]){
+          if(m.key==="h2h"){if(oc.name===ev.home_team)o.mh=oc.price;else if(oc.name===ev.away_team)o.ma=oc.price}
+          else if(m.key==="spreads"){if(oc.name===ev.home_team)o.s=oc.point}
+          else if(m.key==="totals"&&oc.name==="Over")o.t=oc.point}}
+        if(o.s!=null||o.t!=null||o.mh!=null){books[code]=o;if(o.s!=null)ss.push(o.s);if(o.t!=null)ts.push(o.t)}
+      }
+      if(!ss.length||!ts.length)continue;
+      const sAvg=Math.round(ss.reduce((a,b)=>a+b,0)/ss.length*2)/2, tAvg=Math.round(ts.reduce((a,b)=>a+b,0)/ts.length*2)/2;
+      const d=new Date(ev.commence_time);const et=new Date(d.toLocaleString("en-US",{timeZone:"America/New_York"}));const pad=n=>String(n).padStart(2,"0");
+      const k=et.getFullYear()+"-"+pad(et.getMonth()+1)+"-"+pad(et.getDate())+"T"+pad(et.getHours())+":"+pad(et.getMinutes());
+      const m=-sAvg;const ng={id:1000+G.length,lg,k,a:shortName(ev.away_team),h:shortName(ev.home_team),s:sAvg,t:tAvg,books,p:[Math.max(0,Math.round((tAvg-m)/2)),Math.max(0,Math.round((tAvg+m)/2))],ag:[0,0],added:true,
+        note:"Added from the live odds feed. Projection is market-derived (spread sets the margin, total sets the scoring level); no expert or prediction-market lean has been layered on."};
+      if(G.some(x=>x.lg===lg&&x.a===ng.a&&x.h===ng.h))continue;
+      G.push(ng);added++;
+    }
   }
   reanalyze();render();btn.disabled=false;
   const when=new Date().toLocaleString("en-US",{month:"short",day:"numeric",hour:"numeric",minute:"2-digit"});
   try{localStorage.setItem("oddsSnapshot",JSON.stringify({when,G}))}catch(e){}
-  if(matched)setStatus("Updated "+matched+" games at "+when+(remaining?" · "+remaining+" API requests left this month":"")+(errors.length?" · "+errors.join("; "):"")+". Games not on the API's board keep the built-in lines.","ok");
+  if(matched||added)setStatus("Updated "+matched+" game"+(matched===1?"":"s")+(added?", added "+added+" more from the feed":"")+" at "+when+(remaining?" · "+remaining+" API requests left this month":"")+(errors.length?" · "+errors.join("; "):"")+". Games not on the API's board keep the built-in lines.","ok");
   else setStatus("No games matched. "+(errors.join("; ")||"Check that the key is valid and that the API currently lists these games."),"err");
 }
-function revertOdds(){G.forEach((g,i)=>Object.assign(g,JSON.parse(JSON.stringify(BASE[i]))));try{localStorage.removeItem("oddsSnapshot")}catch(e){}reanalyze();render();setStatus("Reverted to the built-in snapshot from Thu Sep 3, 2026.")}
 document.getElementById("refreshBtn").addEventListener("click",refreshOdds);
 document.getElementById("keyToggle").addEventListener("click",e=>{e.preventDefault();const r=document.getElementById("keyRow");r.style.display=r.style.display==="flex"?"none":"flex"});
-document.getElementById("revertBtn").addEventListener("click",revertOdds);
 try{const k=localStorage.getItem("oddsApiKey");if(k)document.getElementById("apiKey").value=k;
-  const snap=JSON.parse(localStorage.getItem("oddsSnapshot")||"null");if(snap&&snap.G){snap.G.forEach(sg=>{const g=G.find(x=>x.id===sg.id);if(g)Object.assign(g,sg)});reanalyze();setStatus("Showing lines from your last refresh ("+snap.when+"). Click Refresh all odds for the latest.","ok")}}catch(e){}
+  const snap=JSON.parse(localStorage.getItem("oddsSnapshot")||"null");if(snap&&snap.G){snap.G.forEach(sg=>{const g=G.find(x=>x.id===sg.id);if(g)Object.assign(g,sg);else G.push(sg)});reanalyze();setStatus("Showing lines from your last refresh ("+snap.when+"). Click Refresh all odds for the latest.","ok")}}catch(e){}
 document.getElementById("sortSel").addEventListener("change",e=>{sort=e.target.value;render()});
-document.getElementById("outsideChk").addEventListener("change",e=>{showOut=e.target.checked;render()});
+document.getElementById("winSel").addEventListener("change",e=>{const [a,b]=e.target.value.split("-").map(Number);winFrom=a;winTo=b;render()});
 document.getElementById("fbsOnlyChk").addEventListener("change",e=>{hideFcs=e.target.checked;render()});
 document.getElementById("q").addEventListener("input",e=>{query=e.target.value.trim();render()});
 document.getElementById("expandAll").addEventListener("click",e=>{const rows=[...document.querySelectorAll(".row")];const open=rows.some(r=>!r.classList.contains("open"));rows.forEach(r=>r.classList.toggle("open",open));e.target.textContent=open?"Collapse all":"Expand all"});
