@@ -114,6 +114,10 @@
   .foot{margin-top:30px;font-size:12.5px;color:var(--ink-2);line-height:1.6}
   .foot h3{font-family:"Barlow Condensed";font-size:20px;margin:0 0 6px}
   .empty{padding:24px;text-align:center;color:var(--ink-3)}
+  .grid2{margin-top:14px}
+  .slipfab{position:fixed;right:18px;bottom:18px;background:var(--navy);color:#fff;padding:10px 16px;border-radius:24px;font-weight:600;font-size:14px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.25);display:none;z-index:30}
+  .slipfab i{font-style:normal;background:var(--gold);color:var(--navy);border-radius:12px;padding:1px 8px;margin-right:4px}
+  #keyRow{display:none;flex-wrap:wrap;gap:10px;align-items:center;flex-basis:100%}
   .refresh{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:12px 16px;margin-top:14px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-size:14px}
   .refresh input[type=password],.refresh input[type=text]{font:inherit;padding:7px 10px;border:1px solid var(--rule-2);border-radius:6px;min-width:230px}
   .refresh .st{color:var(--ink-2);font-size:13px;flex-basis:100%}
@@ -168,8 +172,13 @@
 
 <div class="wrap">
   <div class="controls">
+    <div class="seg" id="viewSeg">
+      <button data-v="singles" class="on">Singles</button>
+      <button data-v="parlay">Parlay</button>
+      <button data-v="both">Singles + Parlay</button>
+    </div>
     <div class="seg" id="leagueSeg">
-      <button data-v="ALL">Both</button>
+      <button data-v="ALL">All leagues</button>
       <button data-v="CFB" class="on">NCAA</button>
       <button data-v="NFL">NFL</button>
     </div>
@@ -204,20 +213,21 @@
     <input type="text" id="q" placeholder="Find a team…" style="width:170px">
     <div class="spacer"></div>
     <button class="btn ghost" id="expandAll">Expand all</button>
-    <button class="btn" onclick="document.getElementById('parlay').scrollIntoView({behavior:'smooth'})">Parlay builder</button>
+    <span style="font-size:12px;color:var(--ink-3)">Filters apply instantly</span>
   </div>
 
   <div class="refresh" id="refreshBox">
-    <b>Refresh odds</b>
-    <input type="password" id="apiKey" placeholder="Paste your The Odds API key" autocomplete="off">
+    <b>Odds</b>
     <button class="btn" id="refreshBtn">Refresh all odds</button>
     <button class="btn ghost" id="revertBtn" title="Go back to the lines pulled when this file was built">Use built-in lines</button>
-    <a href="https://the-odds-api.com" target="_blank" rel="noopener" style="font-size:13px;color:var(--ink-2)">Get a free key</a>
+    <a href="#" id="keyToggle" style="font-size:13px;color:var(--ink-2)">Use a different API key</a>
+    <div id="keyRow"><input type="password" id="apiKey" placeholder="The Odds API key (leave blank for the built-in key)" autocomplete="off"><a href="https://the-odds-api.com" target="_blank" rel="noopener" style="font-size:13px;color:var(--ink-2)">Get a free key</a></div>
     <div class="st" id="refreshStatus">Lines shown are from the build snapshot (Thu Sep 3, 2026). A refresh pulls live BetMGM, DraftKings and FanDuel spreads, totals and money lines for every NFL and NCAAF game and re-runs the projections. A green dot next to a number means it came from a live refresh.</div>
   </div>
-  <div id="boardHost"></div>
+  <div id="stack" style="display:flex;flex-direction:column">
+  <div id="boardHost" style="order:2"></div>
 
-  <div class="grid2">
+  <div class="grid2" id="panels" style="order:1">
     <section class="panel" id="parlay">
       <h2>Parlay builder</h2>
       <p class="hint">Pick a leg count and the builder pulls the highest-confidence legs across the visible slate. At most two legs from one game (e.g., money line + total). You can also add legs by hand from any row.</p>
@@ -238,8 +248,8 @@
             <option value="ml">Money line only</option>
           </select>
         </label>
-        <label>Min money-line odds
-          <select id="minMl"><option value="-100000">Any</option><option value="-400" selected>-400</option><option value="-250">-250</option><option value="-150">-150</option></select>
+        <label>Min odds per leg
+          <input type="number" id="minMl" value="-400" step="5" style="width:90px;font:inherit;padding:7px 8px;border:1px solid var(--rule-2);border-radius:6px" title="Legs priced worse (more negative) than this are excluded. Spreads and totals are -110.">
         </label>
         <button class="btn" id="buildBtn">Build parlay</button>
         <button class="btn ghost" id="clearBtn">Clear slip</button>
@@ -269,6 +279,9 @@
       <ul class="hc" id="hcList"></ul>
     </section>
   </div>
+  </div>
+
+  <div class="slipfab" id="slipFab" onclick="showSlip()"><i>0</i> legs in slip · view</div>
 
   <div class="foot">
     <h3>How the projection works</h3>
@@ -418,7 +431,7 @@ function confClass(c){return c>=60?"":c>=54?"mid":"low"}
 function pctBar(c,lo,hi){return Math.max(6,Math.min(100,(c-lo)/(hi-lo)*100))}
 
 /* ---------- STATE ---------- */
-let league="CFB", sort="time", showOut=false, hideFcs=false, query="", confMin=0, confMax=100, confMode="picks";
+let view="singles", league="CFB", sort="time", showOut=false, hideFcs=false, query="", confMin=0, confMax=100, confMode="picks";
 const inRange=c=>c>=confMin-1e-9&&c<=confMax+1e-9;
 const BASE=JSON.parse(JSON.stringify(G));
 const slip=[]; // {gid,type,side,label,prob,odds}
@@ -445,7 +458,7 @@ function toggleLeg(gid,type,side){
     if(slip.length>=10){flash("Ten legs max.");return}
     slip.push(makeLeg(G.find(g=>g.id===gid),type,side));
   }
-  render();
+  render(); applyView();
 }
 function flash(msg){const n=document.getElementById("slipNote");n.style.display="block";n.textContent=msg;setTimeout(()=>{if(n.textContent===msg)renderSlip()},2500)}
 
@@ -461,7 +474,15 @@ function visibleGames(){
   });
 }
 function topConf(g){const an=A[g.id];return Math.max(an.mlProb*100,an.atsConf,an.ouConf)}
+function applyView(){
+  document.getElementById("boardHost").style.display=view==="parlay"?"none":"";
+  document.getElementById("panels").style.display=view==="singles"?"none":"";
+  const fab=document.getElementById("slipFab");fab.style.display=(slip.length&&view==="singles")?"block":"none";fab.querySelector("i").textContent=slip.length;
+}
+function showSlip(){setView("both");setTimeout(()=>document.getElementById("parlay").scrollIntoView({behavior:"smooth"}),50)}
+function setView(v){view=v;document.querySelectorAll("#viewSeg button").forEach(x=>x.classList.toggle("on",x.dataset.v===v));applyView()}
 function render(){
+  applyView();
   const host=document.getElementById("boardHost"); host.innerHTML="";
   let gs=visibleGames();
   if(sort==="conf")gs=gs.slice().sort((x,y)=>topConf(y)-topConf(x));
@@ -554,17 +575,18 @@ function renderSlip(){
   note.style.display="block";
   note.innerHTML='Overall confidence in this parlay: <b>'+(prob*100).toFixed(1)+'%</b>. Book-implied break-even is '+(implied*100).toFixed(1)+'%, so the model '+(prob>implied?'sees a small edge':'does not see an edge')+' at these prices. Correlated legs from the same game (e.g., favorite ML + Under) are priced by books as same-game parlays and pay less than this estimate.';
 }
-function removeLeg(i){slip.splice(i,1);render()}
+function removeLeg(i){slip.splice(i,1);render();applyView()}
 function buildParlay(){
-  const n=+document.getElementById("legCount").value; const lg=document.getElementById("parlayLg").value; const types=document.getElementById("parlayTypes").value; const minMl=+document.getElementById("minMl").value;
+  const n=+document.getElementById("legCount").value; const lg=document.getElementById("parlayLg").value; const types=document.getElementById("parlayTypes").value; const minMl=Number.isFinite(+document.getElementById("minMl").value)&&document.getElementById("minMl").value!==""?+document.getElementById("minMl").value:-100000;
   const pool=[];
   G.filter(g=>(lg==="ALL"||g.lg===lg)&&(!g.out||showOut)&&(!hideFcs||!g.fcs)).forEach(g=>{
     const an=A[g.id];
     const ok=t=>types==="all"||(types==="mlspread"&&(t==="ml"||t==="ats"))||(types==="spreadtotal"&&(t==="ats"||t==="ou"))||(types==="ml"&&t==="ml");
-    if(ok("ml")){const l=makeLeg(g,"ml",an.mlSide);if(l.odds>=minMl)pool.push(l)}
-    if(ok("ats"))pool.push(makeLeg(g,"ats",an.atsSide));
-    if(ok("ou"))pool.push(makeLeg(g,"ou",an.ouSide));
-    if(types==="all")pool.push(makeLeg(g,"1h",an.h1Side));
+    const add=l=>{if(l.odds>=minMl)pool.push(l)};
+    if(ok("ml"))add(makeLeg(g,"ml",an.mlSide));
+    if(ok("ats"))add(makeLeg(g,"ats",an.atsSide));
+    if(ok("ou"))add(makeLeg(g,"ou",an.ouSide));
+    if(types==="all")add(makeLeg(g,"1h",an.h1Side));
   });
   // score: prefer probability, but reward price so parlays aren't all -600 chalk
   for(let i=pool.length-1;i>=0;i--)if(!inRange(pool[i].prob*100))pool.splice(i,1);
@@ -578,6 +600,7 @@ function buildParlay(){
     if(l.type==="1h"&&slip.some(s=>s.gid===l.gid&&s.type==="ats"))continue;
     slip.push(l);perGame[l.gid]=(perGame[l.gid]||0)+1;
   }
+  if(view==="singles")setView("both");
   if(!slip.length)flash('No legs fall inside the '+confMin+'–'+confMax+'% confidence range with these filters.');
   render(); document.getElementById("slip").scrollIntoView({behavior:"smooth",block:"center"});
 }
@@ -604,7 +627,9 @@ function renderHC(){
 }
 
 /* ---------- WIRING ---------- */
-document.querySelectorAll("#leagueSeg button").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("#leagueSeg button").forEach(x=>x.classList.remove("on"));b.classList.add("on");league=b.dataset.v;document.getElementById("parlayLg").value=league;render()}));
+document.querySelectorAll("#viewSeg button").forEach(b=>b.addEventListener("click",()=>setView(b.dataset.v)));
+document.querySelectorAll("#leagueSeg button").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("#viewSeg button").forEach(b=>b.addEventListener("click",()=>setView(b.dataset.v)));
+document.querySelectorAll("#leagueSeg button").forEach(x=>x.classList.remove("on"));b.classList.add("on");league=b.dataset.v;document.getElementById("parlayLg").value=league;render()}));
 function applyConf(){const v=document.getElementById("confSel").value;const r=document.getElementById("rng");if(v==="custom"){r.style.display="inline-flex";confMin=+document.getElementById("cMin").value||0;confMax=+document.getElementById("cMax").value||100}else{r.style.display="none";const [a,b]=v.split("-").map(Number);confMin=a;confMax=b}if(confMin>confMax){const t=confMin;confMin=confMax;confMax=t}render()}
 document.getElementById("confSel").addEventListener("change",applyConf);
 document.getElementById("cMin").addEventListener("input",applyConf);
@@ -617,9 +642,9 @@ function norm(x){return x.toLowerCase().replace(/[^a-z0-9]/g,"")}
 function teamMatch(ours,api){const al=ALIAS[ours];if(al)return norm(api)===norm(al)||norm(api).startsWith(norm(al));const o=norm(ours),a=norm(api);return a===o||a.startsWith(o)}
 function setStatus(msg,cls){const el=document.getElementById("refreshStatus");el.textContent=msg;el.className="st "+(cls||"")}
 async function refreshOdds(){
-  const key=document.getElementById("apiKey").value.trim();
-  if(!key){setStatus("Paste an API key first. The free tier at the-odds-api.com needs only an email.","err");return}
-  try{localStorage.setItem("oddsApiKey",key)}catch(e){}
+  const DEFAULT_KEY="23a8c1a1b9aae8665377f6e326d3a909";
+  const typed=document.getElementById("apiKey").value.trim();const key=typed||DEFAULT_KEY;
+  try{if(typed)localStorage.setItem("oddsApiKey",typed);else localStorage.removeItem("oddsApiKey")}catch(e){}
   const btn=document.getElementById("refreshBtn");btn.disabled=true;setStatus("Fetching live lines…");
   const bookMap={betmgm:"mgm",draftkings:"dk",fanduel:"fd"};
   let matched=0,remaining=null,errors=[];
@@ -669,6 +694,7 @@ async function refreshOdds(){
 }
 function revertOdds(){G.forEach((g,i)=>Object.assign(g,JSON.parse(JSON.stringify(BASE[i]))));try{localStorage.removeItem("oddsSnapshot")}catch(e){}reanalyze();render();setStatus("Reverted to the built-in snapshot from Thu Sep 3, 2026.")}
 document.getElementById("refreshBtn").addEventListener("click",refreshOdds);
+document.getElementById("keyToggle").addEventListener("click",e=>{e.preventDefault();const r=document.getElementById("keyRow");r.style.display=r.style.display==="flex"?"none":"flex"});
 document.getElementById("revertBtn").addEventListener("click",revertOdds);
 try{const k=localStorage.getItem("oddsApiKey");if(k)document.getElementById("apiKey").value=k;
   const snap=JSON.parse(localStorage.getItem("oddsSnapshot")||"null");if(snap&&snap.G){snap.G.forEach(sg=>{const g=G.find(x=>x.id===sg.id);if(g)Object.assign(g,sg)});reanalyze();setStatus("Showing lines from your last refresh ("+snap.when+"). Click Refresh all odds for the latest.","ok")}}catch(e){}
