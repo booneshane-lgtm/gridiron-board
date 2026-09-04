@@ -119,6 +119,32 @@
   .foot h3{font-family:"Barlow Condensed";font-size:20px;margin:0 0 6px}
   .empty{padding:24px;text-align:center;color:var(--ink-3)}
   .grid2{margin-top:14px}
+  .legcard{border:1px solid var(--rule);border-radius:8px;padding:10px 12px;margin-top:8px;background:var(--paper);display:grid;grid-template-columns:minmax(250px,1.4fr) minmax(200px,1.1fr) minmax(130px,.8fr) minmax(200px,1.2fr);gap:10px 14px;font-size:13px;align-items:start}
+  .legcard .lc-h{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;border-bottom:1px solid var(--rule);padding-bottom:6px}
+  .legcard .lc-h .lbl{font-weight:700;font-size:15px}
+  .legcard .lc-h .conf{font-weight:700;color:var(--green)}
+  .legcard .lc-h .x{margin-left:auto;background:none;border:0;color:var(--red);cursor:pointer;font-size:18px}
+  .legcard h5{margin:0 0 4px;font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:var(--ink-3);font-weight:600}
+  .legcard .sc{font-family:"Barlow Condensed";font-weight:700;font-size:24px;line-height:1}
+  .legcard .why{grid-column:1/-1;font-size:12.5px;color:var(--ink-2);border-top:1px dashed var(--rule);padding-top:6px}
+  .legcard .sp{margin:0;font-size:12px}
+  .legcard .mini{font-size:11.5px} .legcard>div{min-width:0;overflow-x:auto}
+  .lc-mode{font-size:12px;color:var(--ink-2);display:inline-flex;gap:6px;align-items:center;margin-left:8px}
+  @media (max-width:760px){.legcard{grid-template-columns:1fr 1fr}}
+  .slipbar{display:none;position:sticky;top:0;z-index:25;background:var(--paper);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:8px;padding:8px 12px;margin-top:10px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+  .sb-row{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;font-size:13px}
+  .sb-row label{display:inline-flex;align-items:center;gap:4px;color:var(--ink-2)}
+  .sb-row select,.sb-row input{font:inherit;font-size:13px;padding:4px 6px;border:1px solid var(--rule-2);border-radius:5px;background:var(--paper)}
+  .sb-row input{width:70px}
+  .sb-row .btn{padding:5px 11px;font-size:13px}
+  .sb-sum{font-size:13px;color:var(--ink-2)} .sb-sum b{color:var(--ink);font-family:"Barlow Condensed";font-size:17px}
+  .sb-legs{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;max-height:60vh;overflow:auto}
+  .sb-empty{font-size:12.5px;color:var(--ink-3)}
+  .chip{display:inline-flex;align-items:center;gap:6px;background:var(--chalk);border:1px solid var(--rule);border-radius:16px;padding:3px 6px 3px 10px;font-size:12.5px}
+  .chip small{color:var(--ink-3)} .chip b{color:var(--green)}
+  .chip button{border:0;background:none;color:var(--red);cursor:pointer;font-size:14px;line-height:1;padding:0 2px}
+  #hcInline{margin-top:8px;border-top:1px solid var(--rule);padding-top:6px;max-height:260px;overflow:auto}
+  #hcInline .hc li{padding:5px 0;font-size:13px}
   #stack{display:flex;flex-direction:column}
   #boardHost{order:2} #panels{order:1}
   #stack.split{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:16px;align-items:start}
@@ -154,6 +180,9 @@
   .rng{display:none;gap:6px;align-items:center}
   .rng input{width:62px;font:inherit;padding:6px 8px;border:1px solid var(--rule-2);border-radius:6px}
   .pk.dim{opacity:.35}
+  .rec{background:var(--green-bg);border:1px solid #BFE0CC;border-radius:6px;padding:5px 8px;margin-bottom:4px;font-size:12.5px;line-height:1.35}
+  .rec b{color:var(--green)} .rec .edge{color:var(--ink-3);font-size:11px}
+  .rec.pass{background:var(--chalk);border-color:var(--rule)} .rec.pass b{color:var(--ink-2)}
   .mm{display:inline-block;font-size:11px;font-weight:600;padding:1px 6px;border-radius:3px;background:var(--red-bg);color:var(--red);border:1px solid #E9B8C0;margin-top:4px}
   .mm.agree{background:var(--green-bg);color:var(--green);border-color:#BFE0CC}
   .split{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:6px}
@@ -201,8 +230,8 @@
     <h1>Gridiron Board</h1>
     <p class="sub">College football Week 1 and the NFL kickoff games, Thu Sep 3 – Thu Sep 10, 2026. Market lines from BetMGM, DraftKings and FanDuel, a blended projected score for every game, and a confidence figure on each pick.</p>
     <div class="stamp">
-      <span>Lines and analysis pulled <b>Thu Sep 3, 2026 (evening ET)</b></span>
-      <span>Sources: <b>ESPN (lines, line movement, FPI, venue/weather/injuries), ScoresAndOdds (public vs money splits), DraftKings, BetMGM, FanDuel, Kalshi, Polymarket US, SportsLine model, CBS Six Pack, FOX Sports expert panel, CFN 13-expert panel, Bleacher Report, VegasInsider, Pickswise, NFL.com injury reports</b></span>
+      <span>Lines and analysis pulled <b>Fri Sep 4, 2026 (afternoon ET)</b></span>
+      <span>Sources: <b>ESPN (lines, line movement, FPI, venue/weather/injuries), ScoresAndOdds (public vs money splits), DraftKings, BetMGM, FanDuel, Kalshi, Polymarket US, SportsLine model, CBS Six Pack, FOX Sports expert panel, CFN 13-expert panel, Bleacher Report, NBC Sports best bets, RotoWire injuries, VegasInsider, Pickswise, NFL.com injury reports</b></span>
       <span>Superscript <b>c</b> = consensus line (BetMGM/Caesars/DK/FD) where that book's exact cell couldn't be verified</span>
     </div>
   </div>
@@ -213,7 +242,7 @@
     <div class="seg" id="viewSeg">
       <button data-v="singles" class="on">Singles</button>
       <button data-v="parlay">Parlay</button>
-      <button data-v="both">Singles + Parlay</button>
+      <button data-v="both">Singles + Slip</button>
     </div>
     <div class="seg" id="leagueSeg">
       <button data-v="ALL">All leagues</button>
@@ -275,12 +304,27 @@
     <span style="font-size:12px;color:var(--ink-3)">Filters apply instantly</span>
   </div>
 
+  <div class="slipbar" id="slipBar">
+    <div class="sb-row">
+      <b>Parlay slip</b>
+      <label>Legs <select id="legCount2"><option>2</option><option>3</option><option selected>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select></label>
+      <label>Types <select id="parlayTypes2"><option value="all">ML, spread, total, 1H</option><option value="mlspread">ML + spread</option><option value="spreadtotal">Spread + total</option><option value="ml">ML only</option></select></label>
+      <label>Min odds <input type="number" id="minMl2" value="-400" step="5"></label>
+      <button class="btn" id="buildBtn2">Build</button>
+      <button class="btn ghost" id="clearBtn2">Clear</button>
+      <label class="lc-mode"><input type="checkbox" id="detailChk2" checked> Full detail</label>
+      <span class="sb-sum" id="sbSum"></span>
+      <button class="btn ghost" id="hcToggle" style="margin-left:auto">High-confidence board ▾</button>
+    </div>
+    <div class="sb-legs" id="sbLegs"><span class="sb-empty">No legs yet — tap + Slip on any pick, or Build.</span></div>
+    <div id="hcInline" style="display:none"></div>
+  </div>
   <div class="refresh" id="refreshBox">
     <b>Odds</b>
     <button class="btn" id="refreshBtn">Refresh all odds</button>
     <a href="#" id="keyToggle" style="font-size:13px;color:var(--ink-2)">Use a different API key</a>
     <div id="keyRow"><input type="password" id="apiKey" placeholder="The Odds API key (leave blank for the built-in key)" autocomplete="off"><a href="https://the-odds-api.com" target="_blank" rel="noopener" style="font-size:13px;color:var(--ink-2)">Get a free key</a></div>
-    <div class="st" id="refreshStatus">Lines shown are from the build snapshot (Thu Sep 3, 2026, evening). A refresh pulls live BetMGM, DraftKings and FanDuel lines from The Odds API, plus DraftKings open-vs-current lines and FPI win probabilities from ESPN, for every NFL and NCAAF game the books have posted, and re-runs the projections. A green dot next to a number means it came from a live refresh. Use the Dates dropdown to change the window.</div>
+    <div class="st" id="refreshStatus">Lines shown are from the build snapshot (Fri Sep 4, 2026, afternoon). A refresh pulls live BetMGM, DraftKings and FanDuel lines from The Odds API, plus DraftKings open-vs-current lines and FPI win probabilities from ESPN, for every NFL and NCAAF game the books have posted, and re-runs the projections. A green dot next to a number means it came from a live refresh. Use the Dates dropdown to change the window.</div>
   </div>
   <div class="warn" id="rebuildNote" style="display:none;margin:10px 0 0">You've refreshed 10 times since the projections were built. Lines and FPI are live, but the expert and prediction-market analysis behind each projection is from the build date. <button class="btn ghost" style="padding:3px 10px;font-size:12px" onclick="navigator.clipboard&&navigator.clipboard.writeText('Rebuild the Gridiron Board projections from ESPN, SportsLine, DraftKings, FanDuel, BetMGM, Kalshi and Polymarket for the upcoming week.');this.textContent='Copied'">Copy rebuild request</button> and send it to Claude, then upload the new file to GitHub.</div>
   <div id="stack">
@@ -312,6 +356,7 @@
         </label>
         <button class="btn" id="buildBtn">Build parlay</button>
         <button class="btn ghost" id="clearBtn">Clear slip</button>
+        <label class="lc-mode"><input type="checkbox" id="detailChk" checked> Show full game detail on each leg</label>
       </div>
       <div class="slip" id="slip"><div class="empty">No legs yet.</div></div>
       <div class="sum" id="slipSum" style="display:none">
@@ -344,7 +389,7 @@
 
   <div class="foot">
     <h3>How the projection works</h3>
-    <p>Each projected score starts from the market: the consensus spread sets the margin and the consensus total sets the scoring level (the market is the single best predictor and every model above leans on it). That baseline is then nudged by (1) Kalshi and Polymarket win/cover probabilities, which reflect real money rather than opinion; (2) SportsLine's 10,000-simulation model where its lean was published; (3) the College Football News 13-expert panel (an asterisk in their picks means "wins but doesn't cover," which is a strong signal on big spreads); (4) reported line movement and where the money is (e.g., Patriots money moving SEA from -4 to -3.5; Oregon total dropping 53.5 → 51.5 on public Over money). Confidence on a money line is the blended win probability. Confidence on a spread or total starts at 50% and rises only with source agreement and distance between the projection and the number — anything above ~58% on a spread or total is rare and should be. Sharp signals — a money-vs-tickets split, reverse line movement, and steam moves — add or subtract up to four points: when the money side agrees with the projection the number goes up, when it disagrees it comes down. Venue, weather and injury notes appear in each game's detail panel; on a live refresh the page pulls ESPN's venue, forecast and NFL injury lists.</p>
+    <p>Each projected score starts from the market: the consensus spread sets the margin and the consensus total sets the scoring level (the market is the single best predictor and every model above leans on it). That baseline is then nudged by (1) Kalshi and Polymarket win/cover probabilities, which reflect real money rather than opinion; (2) SportsLine's 10,000-simulation model where its lean was published; (3) the College Football News 13-expert panel (an asterisk in their picks means "wins but doesn't cover," which is a strong signal on big spreads); (4) reported line movement and where the money is (e.g., Patriots money moving SEA from -4 to -3.5; Oregon total dropping 53.5 → 51.5 on public Over money). Confidence on a money line is the blended win probability. Confidence on a spread or total starts at 50% and rises only with source agreement and distance between the projection and the number — anything above ~58% on a spread or total is rare and should be. Each game carries a single <b>Best bet</b>: the pick with the largest edge over its break-even (52.4% for a -110 spread or total; the book's implied probability for a money line). If nothing clears break-even by at least a point, the game is marked <b>Pass</b>. Sharp signals — a money-vs-tickets split, reverse line movement, and steam moves — add or subtract up to four points: when the money side agrees with the projection the number goes up, when it disagrees it comes down. Venue, weather and injury notes appear in each game's detail panel; on a live refresh the page pulls ESPN's venue, forecast and NFL injury lists.</p>
     <p>Money lines marked <b>est.</b> are converted from the spread with a standard NFL/CFB curve because that book's exact price couldn't be verified at pull time. Lines move constantly — check the number at your book before doing anything with this. This board is a projection tool, not a guarantee. If you or someone you know has a gambling problem, call 1-800-GAMBLER.</p>
   </div>
 </div>
@@ -371,38 +416,38 @@ const G = [
 {id:9,lg:"CFB",k:"2026-09-03T21:00",a:"Idaho",h:"Utah",s:-34.5,t:56.5,fcs:1,pub:{ml:[94,55],ats:[20,67],ou:[12,63]},p:[10,45],ag:[0,1]},
 {id:10,lg:"CFB",k:"2026-09-03T21:00",a:"UAB",h:"Illinois",s:-28.5,t:56.5,pub:{ml:[96,76],ats:[11,15],ou:[20,17]},p:[14,42],ag:[1,0],note:"Illinois returns a veteran core; UAB's defense was bottom-tier in 2025. Lean Illinois cover, Over."},
 // ---- FRIDAY SEP 4 ----
-{id:11,lg:"CFB",k:"2026-09-04T18:30",a:"San Jose State",h:"Eastern Michigan",s:-3.5,t:54.5,pub:{ml:[82,62],ats:[28,28],ou:[16,31]},p:[27,30],ag:[0,0],note:"Coin-flip game; home team gets the nod at the number."},
-{id:12,lg:"CFB",k:"2026-09-04T19:00",a:"Indiana State",h:"Purdue",s:-35.5,t:56.5,fcs:1,pub:{ml:[96,60],ats:[2,15],ou:[6,8]},p:[10,45],ag:[0,1]},
-{id:13,lg:"CFB",k:"2026-09-04T19:00",a:"NC A&T",h:"Georgia State",s:-28.5,t:63.5,fcs:1,pub:{ml:[96,93],ats:[2,7],ou:[6,7]},p:[17,45],ag:[0,0]},
-{id:14,lg:"CFB",k:"2026-09-04T20:00",a:"UTEP",h:"Oklahoma",s:-41.5,t:51.5,pub:{ml:[95,24],ats:[8,33],ou:[35,75]},p:[7,48],ag:[1,1],note:"OU's defense should suffocate UTEP; total is the more reliable side (Under)."},
-{id:15,lg:"CFB",k:"2026-09-04T20:00",a:"Toledo",h:"Michigan State",s:-10.5,t:49.5,pub:{ml:[97,91],ats:[67,63],ou:[46,46]},p:[20,31],ag:[1,0],note:"Toledo is the MAC's best program and has a history of hanging around in these; Michigan State at -10.5 is slightly rich but the projection still clears it."},
-{id:16,lg:"CFB",k:"2026-09-04T20:00",a:"LIU",h:"Kansas",s:-39.5,t:53.5,fcs:1,pub:{ml:[95,53],ats:[24,53],ou:[32,50]},p:[7,48],ag:[0,1]},
-{id:17,lg:"CFB",k:"2026-09-04T21:00",a:"Fresno State",h:"USC",s:-22.5,t:51.5,r:["",""],pub:{ml:[98,98],ats:[55,59],ou:[34,65]},p:[14,38],ag:[2,0],note:"Consensus USC; five of 13 experts say win-but-no-cover. Maiava and the Trojan offense should get there at home under the lights."},
-{id:18,lg:"CFB",k:"2026-09-04T21:00",a:"Miami",h:"Stanford",s:24.5,t:48.0,r:["#5",""],venue:"Stanford Stadium, Palo Alto (outdoor, late kickoff)",pub:{ml:[4,8],ats:[43,23],ou:[50,68]},p:[34,10],ag:[1,2],note:"All four FOX writers expect a Miami rout behind Darian Mensah and Malachi Toney; six of 13 CFN experts say Miami wins but doesn't cover 24.5. Stanford's offense is thin, so the Under (projected 44) is the stronger lean."},
+{id:11,lg:"CFB",k:"2026-09-04T18:30",a:"San Jose State",h:"Eastern Michigan",s:-3,t:54.5,pub:{ml:[80,44],ats:[31,32],ou:[16,45]},p:[27,30],ag:[0,0],note:"Coin-flip game; home team gets the nod at the number."},
+{id:12,lg:"CFB",k:"2026-09-04T19:00",a:"Indiana State",h:"Purdue",s:-35.5,t:56.5,fcs:1,pub:{ml:[93,8],ats:[5,49],ou:[14,15]},p:[10,45],ag:[0,1]},
+{id:13,lg:"CFB",k:"2026-09-04T19:00",a:"NC A&T",h:"Georgia State",s:-27.5,t:60.5,fcs:1,pub:{ml:[93,74],ats:[6,10],ou:[14,16]},p:[17,45],ag:[0,0]},
+{id:14,lg:"CFB",k:"2026-09-04T20:00",a:"UTEP",h:"Oklahoma",s:-40.5,t:51.5,pub:{ml:[93,99],ats:[11,37],ou:[25,50]},p:[7,48],ag:[1,1],note:"OU's defense should suffocate UTEP; total is the more reliable side (Under)."},
+{id:15,lg:"CFB",k:"2026-09-04T20:00",a:"Toledo",h:"Michigan State",s:-10.5,t:47.5,pub:{ml:[96,88],ats:[66,62],ou:[30,35]},p:[20,31],ag:[1,0],note:"Toledo is the MAC's best program and has a history of hanging around in these; Michigan State at -10.5 is slightly rich but the projection still clears it."},
+{id:16,lg:"CFB",k:"2026-09-04T20:00",a:"LIU",h:"Kansas",s:-42.5,t:54.5,fcs:1,pub:{ml:[88,88],ats:[13,71],ou:[28,30]},p:[7,48],ag:[0,1]},
+{id:17,lg:"CFB",k:"2026-09-04T21:00",a:"Fresno State",h:"USC",s:-22.5,t:51.5,r:["",""],pub:{ml:[96,86],ats:[59,54],ou:[40,56]},p:[14,38],ag:[2,0],note:"Consensus USC; five of 13 experts say win-but-no-cover. Maiava and the Trojan offense should get there at home under the lights."},
+{id:18,lg:"CFB",k:"2026-09-04T21:00",a:"Miami",h:"Stanford",s:24.5,t:48.0,r:["#5",""],venue:"Stanford Stadium, Palo Alto (outdoor, late kickoff)",inj:"Stanford: DL London Bironas and OL Reiman Zebert out; Niki Prongos and Jshawn High questionable; Miami: no major injuries reported. NBC Sports expects Miami to score three-plus times in the first half against QB Davis Warren.",pub:{ml:[5,25],ats:[34,25],ou:[29,51]},p:[34,10],ag:[1,2],note:"All four FOX writers expect a Miami rout behind Darian Mensah and Malachi Toney; six of 13 CFN experts say Miami wins but doesn't cover 24.5. Stanford's offense is thin, so the Under (projected 44) is the stronger lean."},
 // ---- SATURDAY SEP 5 ----
-{id:19,lg:"CFB",k:"2026-09-05T12:00",a:"North Texas",h:"Indiana",s:-40.5,t:55.5,r:["","#4"],pub:{ml:[96,38],ats:[3,21],ou:[9,41]},p:[13,48],ag:[2,1],note:"10 of 13 CFN experts: Indiana wins, doesn't cover. Defending champs in a noon kickoff vs a UNT offense that can score. Lean UNT +40.5."},
-{id:20,lg:"CFB",k:"2026-09-05T12:00",a:"East Carolina",h:"Alabama",s:-28.5,t:53.5,r:["","#6"],pub:{ml:[98,86],ats:[23,50],ou:[13,22]},p:[13,41],ag:[1,1],note:"Split panel on the cover. Bama's opener under new QB rotation; projection lands right at 28."},
-{id:21,lg:"CFB",k:"2026-09-05T12:00",a:"Oregon State",h:"Houston",s:-20.5,t:50.5,pub:{ml:[97,94],ats:[31,54],ou:[29,41]},p:[17,34],ag:[2,1],note:"9 of 13 experts: Houston wins but no cover. Oregon State keeps it within three scores in the projection."},
-{id:22,lg:"CFB",k:"2026-09-05T12:00",a:"Ohio",h:"Nebraska",s:-24.5,t:47.5,pub:{ml:[99,96],ats:[7,37],ou:[43,26]},p:[10,34],ag:[1,1]},
-{id:23,lg:"CFB",k:"2026-09-05T12:00",a:"Coastal Carolina",h:"West Virginia",s:-21.5,t:56.5,pub:{ml:[99,94],ats:[10,21],ou:[3,5]},p:[17,38],ag:[0,0]},
-{id:24,lg:"CFB",k:"2026-09-05T12:00",a:"Liberty",h:"James Madison",s:-6.5,t:52.5,pub:{ml:[94,85],ats:[65,55],ou:[23,34]},p:[20,31],ag:[1,0],note:"JMU is the better team on paper and at home; projection covers by a touchdown."},
-{id:25,lg:"CFB",k:"2026-09-05T12:30",a:"Ball State",h:"Ohio State",s:-50.5,t:56.5,r:["","#1"],pub:{ats:[3,42],ou:[6,33]},p:[3,52],ag:[2,2],note:"Eight of 13 experts: OSU wins, no cover. At 50.5, one Ball State field goal changes the cover math. Lean Ball State +50.5 and Under 56.5."},
+{id:19,lg:"CFB",k:"2026-09-05T12:00",a:"North Texas",h:"Indiana",s:-40.5,t:56.5,r:["","#4"],pub:{ml:[96,39],ats:[4,25],ou:[11,36]},p:[13,48],ag:[2,1],note:"10 of 13 CFN experts: Indiana wins, doesn't cover. Defending champs in a noon kickoff vs a UNT offense that can score. Lean UNT +40.5."},
+{id:20,lg:"CFB",k:"2026-09-05T12:00",a:"East Carolina",h:"Alabama",s:-27.5,t:53.5,r:["","#6"],pub:{ml:[98,91],ats:[28,59],ou:[15,20]},p:[13,41],ag:[1,1],note:"Split panel on the cover. Bama's opener under new QB rotation; projection lands right at 28."},
+{id:21,lg:"CFB",k:"2026-09-05T12:00",a:"Oregon State",h:"Houston",s:-21,t:50.5,pub:{ml:[96,86],ats:[34,51],ou:[15,23]},p:[17,34],ag:[2,1],note:"9 of 13 experts: Houston wins but no cover. Oregon State keeps it within three scores in the projection."},
+{id:22,lg:"CFB",k:"2026-09-05T12:00",a:"Ohio",h:"Nebraska",s:-24.5,t:47.5,inj:"Ohio: star QB Parker Navarro out; Nick Polous (8 career attempts, 44.9% as a freshman) starts behind an entirely new offensive line — one returning offensive starter. Nebraska: healthy; Anthony Colandrea (UNLV/Virginia transfer) at QB.",note:"NBC Sports' Week 1 best-bet card lays Nebraska -23.5 (-118), citing Ohio's rebuilt offense and QB downgrade. Projection sits right on the number; the money (62% on Nebraska vs 10% of tickets) agrees with the lean.",pub:{ml:[99,96],ats:[10,38],ou:[18,20]},p:[10,34],ag:[2,1]},
+{id:23,lg:"CFB",k:"2026-09-05T12:00",a:"Coastal Carolina",h:"West Virginia",s:-21,t:55.5,pub:{ml:[98,95],ats:[14,68],ou:[5,9]},p:[17,38],ag:[0,0]},
+{id:24,lg:"CFB",k:"2026-09-05T12:00",a:"Liberty",h:"James Madison",s:-6,t:52.5,pub:{ml:[95,88],ats:[65,50],ou:[13,21]},p:[20,31],ag:[1,0],note:"JMU is the better team on paper and at home; projection covers by a touchdown."},
+{id:25,lg:"CFB",k:"2026-09-05T12:30",a:"Ball State",h:"Ohio State",s:-50.5,t:56.5,r:["","#1"],pub:{ml:[96,99],ats:[5,35],ou:[11,24]},p:[3,52],ag:[2,2],note:"NBC Sports' best-bet card plays Ohio State team total Under 52.5. Eight of 13 experts: OSU wins, no cover. At 50.5, one Ball State field goal changes the cover math. Lean Ball State +50.5 and Under 56.5."},
 {id:26,lg:"CFB",k:"2026-09-05T12:30",a:"Miami (OH)",h:"Pitt",s:-16.5,t:50.5,p:[13,31],ag:[0,0]},
-{id:27,lg:"CFB",k:"2026-09-05T12:45",a:"Kent State",h:"South Carolina",s:-36.5,t:53.5,pub:{ml:[96,74],ats:[2,32],ou:[5,48]},p:[7,45],ag:[1,0]},
-{id:28,lg:"CFB",k:"2026-09-05T15:00",a:"Tennessee State",h:"Georgia",s:-47.5,t:56.5,fcs:1,r:["","#3"],pub:{ml:[96,80],ats:[39,61],ou:[40,47]},p:[3,52],ag:[1,1]},
-{id:29,lg:"CFB",k:"2026-09-05T15:30",a:"Boise State",h:"Oregon",s:-24.5,t:51.5,r:["","#2"],books:{dk:{s:-24.5,t:51.5},mgm:{s:-24.5,t:51.5}},venue:"Autzen Stadium, Eugene — loud, home edge roughly a field goal",inj:"No major injuries reported.",pub:{ml:[98,86],ats:[33,59],ou:[14,35]},p:[13,38],ag:[2,1],note:"Spread hasn't moved off -24.5 in months (Borgata/BetMGM). DK total fell 52.5→51.5 even with most tickets on the Over — money is on the Under. 11 of 13 CFN experts: Oregon covers; FOX's panel is 4-0 Oregon with one expecting Boise to stay competitive (the 2024 meeting was 37-34). Lean Oregon, Under."},
-{id:30,lg:"CFB",k:"2026-09-05T15:30",a:"Marshall",h:"Penn State",s:-24.5,t:52.5,venue:"Beaver Stadium (outdoor) — Matt Campbell debut, roster mostly portal transfers",pub:{ml:[99,90],ats:[36,50],ou:[6,12]},p:[12,38],ag:[3,2],note:"SportsLine's model projects Penn State 39-11 and backs PSU -24.5 and the Under. Matt Campbell's debut with a roster more than half from the portal. Projection agrees on both sides."},
-{id:31,lg:"CFB",k:"2026-09-05T15:30",a:"Texas State",h:"Texas",s:-29.5,t:59.5,r:["","#8"],pub:{ml:[98,97],ats:[8,55],ou:[3,23]},p:[14,45],ag:[2,0],note:"10 of 13 experts: Texas covers. Arch Manning's second year; Texas State can score, hence the high total."},
-{id:32,lg:"CFB",k:"2026-09-05T15:30",a:"Baylor",h:"Auburn",n:"Mercedes-Benz Stadium, Atlanta",s:-7.5,t:59.0,venue:"Mercedes-Benz Stadium, Atlanta (dome, neutral; Auburn fans closer)",inj:"Baylor QB DJ Lagway (Florida transfer) starts; Auburn QB Byrum Brown healthy.",pub:{ml:[93,78],ats:[63,69],ou:[35,35]},p:[24,34],ag:[2,1],note:"SportsLine: Auburn covers 'well over 60%' of simulations; 9 of 13 CFN experts also lay it. FOX's panel splits 2-2, with two writers taking Baylor outright on DJ Lagway (Florida transfer) and Dave Aranda's seat. Auburn's Byrum Brown (3,000/1,000 at USF) is the reason the model likes the Tigers. Total ticked 58.5→59.5 at some books. Lean Auburn -7.5."},
-{id:33,lg:"CFB",k:"2026-09-05T15:30",a:"Boston College",h:"Cincinnati",s:-7.5,t:50.5,pub:{ml:[97,88],ats:[61,35],ou:[14,14]},p:[20,31],ag:[2,1],note:"SportsLine model backs Cincinnati -7.5 at home. Total varies 49.5–51.5 by book — shop it."},
-{id:34,lg:"CFB",k:"2026-09-05T15:30",a:"Tulane",h:"Duke",s:-7.5,t:51.5,pub:{ml:[94,87],ats:[53,63],ou:[20,24]},p:[23,30],ag:[1,0],note:"Two 2025 conference champions. Tulane's returning production makes +7.5 attractive; projection has Duke winning by exactly seven."},
-{id:35,lg:"CFB",k:"2026-09-05T15:30",a:"Furman",h:"Tennessee",s:-48.5,t:66.5,fcs:1,r:["","#20"],p:[7,56],ag:[0,1],note:"Highest total on the board (66.5)."},
-{id:36,lg:"CFB",k:"2026-09-05T15:45",a:"Oklahoma State",h:"Tulsa",s:13.5,t:59.5,p:[35,24],ag:[0,0]},
-{id:37,lg:"CFB",k:"2026-09-05T16:15",a:"Northern Illinois",h:"Iowa",s:-31.5,t:44.5,p:[6,34],ag:[2,2],note:"10 of 13 experts: Iowa wins, doesn't cover. Iowa football and a 44.5 total: projection 40 points. Lean NIU +31.5, Under."},
-{id:38,lg:"CFB",k:"2026-09-05T18:00",a:"Wyoming",h:"Colorado State",s:-3.5,t:46.5,p:[21,24],ag:[0,1],note:"Border War. Low total, tight number; home side at a field goal."},
+{id:27,lg:"CFB",k:"2026-09-05T12:45",a:"Kent State",h:"South Carolina",s:-36.5,t:53.5,pub:{ml:[96,71],ats:[3,30],ou:[11,21]},p:[7,45],ag:[1,0]},
+{id:28,lg:"CFB",k:"2026-09-05T15:00",a:"Tennessee State",h:"Georgia",s:-47.5,t:55.5,fcs:1,r:["","#3"],pub:{ml:[96,96],ats:[14,65],ou:[19,30]},p:[3,52],ag:[1,1]},
+{id:29,lg:"CFB",k:"2026-09-05T15:30",a:"Boise State",h:"Oregon",s:-24.5,t:51.5,r:["","#2"],books:{dk:{s:-24.5,t:51.5},mgm:{s:-24.5,t:51.5}},venue:"Autzen Stadium, Eugene — loud, home edge roughly a field goal",inj:"No major injuries reported.",pub:{ml:[98,91],ats:[36,67],ou:[15,26]},p:[13,38],ag:[2,1],note:"Spread hasn't moved off -24.5 in months (Borgata/BetMGM). DK total fell 52.5→51.5 even with most tickets on the Over — money is on the Under. 11 of 13 CFN experts: Oregon covers; FOX's panel is 4-0 Oregon with one expecting Boise to stay competitive (the 2024 meeting was 37-34). Lean Oregon, Under."},
+{id:30,lg:"CFB",k:"2026-09-05T15:30",a:"Marshall",h:"Penn State",s:-23.5,t:52.5,venue:"Beaver Stadium (outdoor) — Matt Campbell debut, roster mostly portal transfers",pub:{ml:[99,94],ats:[38,43],ou:[10,12]},p:[12,38],ag:[3,2],note:"SportsLine's model projects Penn State 39-11 and backs PSU -24.5 and the Under. Matt Campbell's debut with a roster more than half from the portal. Projection agrees on both sides."},
+{id:31,lg:"CFB",k:"2026-09-05T15:30",a:"Texas State",h:"Texas",s:-29.5,t:59.5,r:["","#8"],pub:{ml:[99,97],ats:[10,57],ou:[7,25]},p:[14,45],ag:[2,0],note:"NBC Sports plays Texas team total Under 45.5 (-145), which cuts against the Over. 10 of 13 experts: Texas covers. Arch Manning's second year; Texas State can score, hence the high total."},
+{id:32,lg:"CFB",k:"2026-09-05T15:30",a:"Baylor",h:"Auburn",n:"Mercedes-Benz Stadium, Atlanta",s:-7.5,t:59.5,venue:"Mercedes-Benz Stadium, Atlanta (dome, neutral; Auburn fans closer)",inj:"Baylor QB DJ Lagway (Florida transfer) starts; Auburn QB Byrum Brown healthy.",pub:{ml:[94,76],ats:[64,77],ou:[26,27]},p:[24,34],ag:[2,1],note:"SportsLine: Auburn covers 'well over 60%' of simulations; 9 of 13 CFN experts also lay it. FOX's panel splits 2-2, with two writers taking Baylor outright on DJ Lagway (Florida transfer) and Dave Aranda's seat. Auburn's Byrum Brown (3,000/1,000 at USF) is the reason the model likes the Tigers. Total ticked 58.5→59.5 at some books. Lean Auburn -7.5."},
+{id:33,lg:"CFB",k:"2026-09-05T15:30",a:"Boston College",h:"Cincinnati",s:-7.5,t:50.5,pub:{ml:[96,88],ats:[63,44],ou:[11,11]},p:[20,31],ag:[2,1],note:"SportsLine model backs Cincinnati -7.5 at home. Total varies 49.5–51.5 by book — shop it."},
+{id:34,lg:"CFB",k:"2026-09-05T15:30",a:"Tulane",h:"Duke",s:-7.5,t:51.5,pub:{ml:[94,78],ats:[78,46],ou:[13,20]},p:[23,30],ag:[1,0],note:"Two 2025 conference champions. Tulane's returning production makes +7.5 attractive; projection has Duke winning by exactly seven."},
+{id:35,lg:"CFB",k:"2026-09-05T15:30",a:"Furman",h:"Tennessee",s:-47.5,t:66.5,fcs:1,r:["","#20"],pub:{ml:[97,97],ats:[7,23],ou:[14,18]},p:[7,56],ag:[0,1],note:"Highest total on the board (66.5)."},
+{id:36,lg:"CFB",k:"2026-09-05T15:45",a:"Oklahoma State",h:"Tulsa",s:13.5,t:59.5,pub:{ml:[3,4],ats:[38,28],ou:[4,10]},p:[35,24],ag:[0,0]},
+{id:37,lg:"CFB",k:"2026-09-05T16:15",a:"Northern Illinois",h:"Iowa",s:-31.5,t:44.5,pub:{ml:[97,80],ats:[2,22],ou:[53,52]},p:[6,34],ag:[2,2],note:"10 of 13 experts: Iowa wins, doesn't cover. Iowa football and a 44.5 total: projection 40 points. Lean NIU +31.5, Under."},
+{id:38,lg:"CFB",k:"2026-09-05T18:00",a:"Wyoming",h:"Colorado State",s:-3,t:46.5,pub:{ml:[93,61],ats:[65,23],ou:[22,19]},p:[21,24],ag:[0,1],note:"Border War. Low total, tight number; home side at a field goal."},
 {id:39,lg:"CFB",k:"2026-09-05T19:00",a:"Missouri State",h:"Texas A&M",s:-40.5,t:52.5,p:[7,45],ag:[1,1],note:"Seven of 13 experts: A&M wins, no cover."},
 {id:40,lg:"CFB",k:"2026-09-05T19:00",a:"Arkansas State",h:"Memphis",s:-8.5,t:55.5,p:[24,34],ag:[1,0]},
-{id:41,lg:"CFB",k:"2026-09-05T19:30",a:"Clemson",h:"LSU",s:-10,t:50.5,r:["","#11"],books:{dk:{s:-10.5,t:50.5}},venue:"Tiger Stadium, Baton Rouge — night game, one of the strongest home-field edges in the sport",inj:"LSU: eligibility of ex-NFL returnees unresolved as of Thu; Clemson: young offensive line/skill group, no major injuries reported.",pub:{ats:[46,47],ou:[85,84]},p:[17,27],ag:[2,2],note:"Lane Kiffin's LSU debut in Death Valley. DK has -10.5; consensus -10. SportsLine backs LSU to cover in 55% of sims; CBS's Tom Fornelli makes LSU -10 his pick; all four FOX writers take LSU straight up; Bleacher Report says the edge is LSU's defense against a green Clemson offense. 7 of 13 CFN experts say LSU wins without covering. Wild card: LSU's eligibility fight over ex-NFL players was unresolved as of Thursday — if those players are cleared it strengthens LSU; if not, the roster is thinner than the line assumes. Projection lands on 10 — a push at -10. Under 50.5 (projected 44) is the firmer lean."},
+{id:41,lg:"CFB",k:"2026-09-05T19:30",a:"Clemson",h:"LSU",s:-10,t:50.5,r:["","#11"],books:{dk:{s:-10.5,t:50.5}},venue:"Tiger Stadium, Baton Rouge — night game, one of the strongest home-field edges in the sport",inj:"LSU: ex-NFL returnees Wright and Harris cleared by a judge Thu night but neither is eligible for this game (practice rule / not enrolled); Clemson: young offensive line/skill group, no major injuries reported.",pub:{ats:[46,47],ou:[85,84]},p:[17,27],ag:[2,2],note:"Lane Kiffin's LSU debut in Death Valley. DK has -10.5; consensus -10. SportsLine backs LSU to cover in 55% of sims; CBS's Tom Fornelli makes LSU -10 his pick; all four FOX writers take LSU straight up; Bleacher Report says the edge is LSU's defense against a green Clemson offense. 7 of 13 CFN experts say LSU wins without covering. Update Fri Sep 4: a Baton Rouge judge granted LSU an injunction Thursday night, but TE Dae'Quan Wright only began practicing this week and cannot play Saturday under the seven-practice rule, and DL Zxavian Harris hasn't yet enrolled — so the ruling changes nothing for this game. The SEC has countersued and is appealing. Projection lands on 10 — a push at -10. Under 50.5 (projected 44) is the firmer lean."},
 {id:42,lg:"CFB",k:"2026-09-05T19:30",a:"Western Michigan",h:"Michigan",s:-27.5,t:47.5,r:["","#16"],p:[7,34],ag:[1,1],note:"Kyle Whittingham's first game at Michigan; Bryce Underwood starts. FOX's four writers all take Michigan, expecting the Marshall/Hiter run game to carry it, but one flags WMU's Broc Lowry (MAC OPOY) as capable of keeping it respectable. CFN calls it 'a dangerous opener'; six of 13 say win-no-cover."},
 {id:43,lg:"CFB",k:"2026-09-05T19:45",a:"Florida Atlantic",h:"Florida",s:-26.5,t:59.5,p:[14,41],ag:[0,0]},
 {id:44,lg:"CFB",k:"2026-09-05T22:00",a:"UNLV",h:"Hawaii",s:3.5,t:58.5,p:[31,28],ag:[0,1],note:"Panel split 8-5 for UNLV, with three of the UNLV backers saying no cover. Genuine coin flip; slight Over lean at 58.5."},
@@ -410,32 +455,32 @@ const G = [
 {id:46,lg:"CFB",k:"2026-09-05T22:30",a:"Western Kentucky",h:"Nevada",s:2.5,t:53.5,p:[27,24],ag:[0,0]},
 // ---- SUNDAY SEP 6 ----
 {id:47,lg:"CFB",k:"2026-09-06T16:00",a:"Washington State",h:"Washington",s:-23.5,t:50.5,p:[14,35],ag:[2,2],note:"Apple Cup in Seattle. 9 of 13 experts: Washington wins, no cover. Projection 21-point margin, 49 total. Lean Wazzu +23.5, Under."},
-{id:48,lg:"CFB",k:"2026-09-06T19:30",a:"Wisconsin",h:"Notre Dame",n:"Lambeau Field, Green Bay",s:-20.5,t:47.5,r:["","#7"],books:{mgm:{s:-20.5,t:47.5}},venue:"Lambeau Field, Green Bay (neutral in name, Wisconsin crowd)",inj:"Wisconsin starts new QB Colton Joseph (ODU transfer).",pub:{ats:[41,54],ou:[95,95]},p:[10,34],ag:[2,3],note:"Pickswise's Week 1 best bet is Notre Dame -20.5 (playable to -22.5). ND returns 72% of production, most in the country. 9 of 13 CFN experts: ND covers, and all four FOX writers take the Irish, two of them expecting a rout. Counterpoint from CBS's Fornelli: Wisconsin's late-2025 defensive improvement plus Lambeau could keep it closer — but he expects few points either way. Wisconsin's new dual-threat QB Colton Joseph (2,500 pass / 1,000 rush at ODU) is the Badgers' one wild card. Lean ND, Under 47.5 — the Under has the broadest agreement."},
+{id:48,lg:"CFB",k:"2026-09-06T19:30",a:"Wisconsin",h:"Notre Dame",n:"Lambeau Field, Green Bay",s:-20.5,t:47.5,r:["","#7"],books:{mgm:{s:-20.5,t:47.5}},venue:"Lambeau Field, Green Bay (neutral in name, Wisconsin crowd)",inj:"Wisconsin starts new QB Colton Joseph (ODU transfer).",pub:{ats:[41,54],ou:[95,95]},p:[10,34],ag:[2,3],note:"Pickswise's Week 1 best bet is Notre Dame -20.5 (playable to -22.5). ND returns 72% of production, most in the country. 9 of 13 CFN experts: ND covers, and all four FOX writers take the Irish, two of them expecting a rout. Counterpoint from CBS's Fornelli: Wisconsin's late-2025 defensive improvement plus Lambeau could keep it closer — but he expects few points either way. Wisconsin's new dual-threat QB Colton Joseph (2,500 pass / 1,000 rush at ODU) is the Badgers' one wild card. Lean ND, Under 47.5 — the Under has the broadest agreement; NBC Sports' card adds 1H Under 24.5."},
 {id:49,lg:"CFB",k:"2026-09-06T19:30",a:"Louisville",h:"Ole Miss",n:"Nissan Stadium, Nashville",s:-7,t:55.5,r:["#24","#9"],books:{dk:{s:-7,t:55.5}},venue:"Nissan Stadium, Nashville (neutral; Ole Miss fans likely majority)",inj:"No significant injuries reported either side.",pub:{ats:[84,89],ou:[73,78]},p:[27,31],ag:[2,1],note:"Only ranked-vs-ranked game of the week; line has climbed from -6.5 to -7. The expert room is unusually split: FOX's panel goes 2-2 (Litman and Portnoy both call a Louisville upset, citing Jeff Brohm's consistency and doubts about post-Kiffin Ole Miss), CBS's Six Pack puts Ole Miss on upset alert, three of 13 CFN experts take Louisville outright, while Bleacher Report calls Ole Miss the safer pick behind Trinidad Chambliss. Projection: Ole Miss wins by 4 — Louisville +7 is the lean, with the Rebels money line if you want the favorite. Under slight."},
 // ---- MONDAY SEP 7 ----
 {id:50,lg:"CFB",k:"2026-09-07T19:30",a:"SMU",h:"Florida State",s:2.5,t:53.0,books:{dk:{s:3.5,t:53.5}},venue:"Doak Campbell Stadium, Tallahassee (outdoor, Labor Day night)",inj:"FSU coming off a shaky Week 0; no major injuries reported.",p:[28,24],ag:[2,1],note:"Consensus SMU -2.5; DK -3.5. All four FOX writers take SMU, three of them framing it as Mike Norvell's seat getting hotter after FSU's Week 0 red flags; CFN panel 8-6 SMU with two saying no cover. If you like SMU, take the money line; if FSU, take +3.5 where available."},
 // ---- NFL ----
-{id:51,lg:"NFL",k:"2026-09-09T20:20",a:"New England Patriots",h:"Seattle Seahawks",s:-3.5,t:44.5,pub:{ml:[86,80],ats:[45,57],ou:[27,25]},venue:"Lumen Field, Seattle (outdoor)",wx:"Sunny, 77°F (ESPN forecast)",inj:"SEA: RB Zach Charbonnet (knee) on reserve list; S Bud Clark (ankle) IR. NE: no injuries reported.",ka:0.61,kov:53,
+{id:51,lg:"NFL",k:"2026-09-09T20:20",a:"New England Patriots",h:"Seattle Seahawks",s:-3.5,t:44.5,pub:{ml:[86,78],ats:[45,61],ou:[27,26]},venue:"Lumen Field, Seattle (outdoor)",wx:"Sunny, 77°F (ESPN forecast)",inj:"SEA: RB Zach Charbonnet (knee) on reserve list; S Bud Clark (ankle) IR. NE: no injuries reported.",ka:0.61,kov:53,
  books:{mgm:{s:-3.5,t:44.5,ma:165,mh:-200},dk:{s:-3.5,t:44.5,ma:145,mh:-175,open:{s:-3.5,t:44.5,mh:-192}},fd:{s:-3.5,t:44.5,ma:160,mh:-167}},
  p:[21,24],ag:[3,0],note:"Super Bowl LX rematch. Injury edge to New England: Seattle's Zach Charbonnet is on the reserve list (rookie Jadarian Price leads the backfield) and rookie safety Bud Clark is on IR; the Patriots report no injuries. Seattle also lost Walker, Woolen and Mafe in free agency while NE added A.J. Brown. Nearly every columnist still picks Seattle straight up, but the betting-side consensus (BetMGM: 'support has favored the Patriots'; Kalshi 39% on NE ML) is that +3.5 is the value. BetMGM: New England opened +4 and was bet to +3.5 — support has favored the Patriots to cover. Seattle closed -5 on a neutral field in February, so -3.5 at home is a real move toward NE (A.J. Brown added; Kenneth Walker gone, Charbonnet's status unclear). SportsLine model: Over 44.5. BetMGM's analyst: Under 44.5. Kalshi: SEA 61% to win; Under priced at 53%. DraftKings ML has eased from -192 to -175 on Seattle since May. Lean NE +3.5; total is a stay-away."},
 {id:52,lg:"NFL",k:"2026-09-10T20:35",a:"San Francisco 49ers",h:"Los Angeles Rams",n:"Melbourne Cricket Ground, Australia",s:-3.5,t:47.5,pub:{ml:[89,90],ats:[50,68],ou:[20,17]},venue:"Melbourne Cricket Ground (outdoor, neutral)",wx:"Early-spring Melbourne evening; wind possible in an open oval",inj:"SF: TE George Kittle (PUP, activated Aug 23) — team-drill and travel status unconfirmed. LAR: no injuries reported.",ka:0.63,kats:50,kov:50,
  books:{dk:{s:-3.5,t:48.5,ma:164,mh:-198,open:{s:-2.5,t:48.5,mh:-155}},fd:{s:-3.5,t:47.5,ma:159,mh:-171}},
  p:[23,27],ag:[1,1],note:"First NFL game in Australia. Roster notes: Rams acquired Myles Garrett in June; 49ers added Mike Evans, but George Kittle's availability and travel status were unconfirmed as of Sep 1 (Jake Tonges is the contingency). One matchup-simulation site has the Rams by 19 — treat that as an outlier; the market and Kalshi are a dead 50/50 on the spread. DraftKings opened Rams -2.5 and is now -3.5 (ML -155 → -198); total 48.5 at DK, 47.5 elsewhere. Rams are using an unusual travel plan (CBS); both teams face the same 15-hour flight. Kalshi is a dead 50/50 on both spread and total. Projection: Rams by 4 with 50 points — slight Over."},
 // ---- NFL beyond window (Sun 9/13 – Mon 9/14) ----
-{id:53,out:1,lg:"NFL",k:"2026-09-13T13:00",a:"Chicago Bears",h:"Carolina Panthers",s:2.5,t:47.5,pub:{ml:[15,9],ats:[34,9],ou:[13,19]},venue:"Bank of America Stadium, Charlotte (outdoor)",inj:"CAR: both starting tackles (Ekwonu, Moton) unavailable.",ka:0.41,kats:48,kov:47,books:{dk:{ma:-135,mh:114}},p:[25,21],ag:[1,1]},
-{id:54,out:1,lg:"NFL",k:"2026-09-13T13:00",a:"Tampa Bay Buccaneers",h:"Cincinnati Bengals",s:-3.5,t:50.5,pub:{ml:[87,77],ats:[43,47],ou:[11,28]},venue:"Paycor Stadium, Cincinnati (outdoor)",ka:0.65,kats:50,kov:52,books:{dk:{s:-3.5,t:50.5,ma:164,mh:-198}},p:[24,27],ag:[0,1]},
-{id:55,out:1,lg:"NFL",k:"2026-09-13T13:00",a:"Baltimore Ravens",h:"Indianapolis Colts",s:3.5,t:48.5,pub:{ml:[12,11],ats:[45,36],ou:[16,11]},venue:"Lucas Oil Stadium, Indianapolis (dome)",inj:"BAL: WR Zay Flowers — expected full practice.",ka:0.37,kats:52,kov:51,books:{dk:{s:3.5,t:48.5,ma:-175,mh:145,open:{s:3.5,t:49.5}}},p:[26,22],ag:[1,0],note:"Jesse Minter's first game as Ravens coach; Kalshi has slight Colts-cover lean."},
-{id:56,out:1,lg:"NFL",k:"2026-09-13T13:00",a:"Buffalo Bills",h:"Houston Texans",s:1.5,t:44.5,pub:{ml:[36,27],ats:[45,67],ou:[23,20]},venue:"NRG Stadium, Houston (retractable roof)",inj:"HOU: WR Tank Dell on IR (designated to return).",ka:0.49,kats:55,kov:50,p:[23,22],ag:[1,0],note:"Kalshi: Texans 55% to cover +1.5, and BetMGM's expert pick is the Texans money line, citing Houston holding Buffalo to -0.164 EPA/play in their 2025 meeting. Sharpest spread lean on the Sunday slate."},
-{id:57,out:1,lg:"NFL",k:"2026-09-13T13:00",a:"New Orleans Saints",h:"Detroit Lions",s:-7,t:49.5,pub:{ml:[96,91],ats:[23,68],ou:[17,26]},venue:"Ford Field, Detroit (dome)",ka:0.74,kats:54,kov:48,books:{dk:{s:-7,t:49.5,ma:240,mh:-298,open:{s:-7,t:48.5,mh:-325}}},p:[20,28],ag:[1,1]},
-{id:58,out:1,lg:"NFL",k:"2026-09-13T13:00",a:"New York Jets",h:"Tennessee Titans",s:-1.5,t:38.5,pub:{ml:[80,77],ats:[57,61],ou:[55,58]},venue:"Nissan Stadium, Nashville (outdoor)",inj:"NYJ: RB Breece Hall — expected full practice.",ka:0.56,kats:51,kov:52,books:{dk:{s:-1.5,t:38.5,ma:110,mh:-130,open:{s:-3,t:39.5,mh:-170}}},p:[18,20],ag:[1,0],note:"Lowest total of the week (38.5). DraftKings opened Titans -3 and has been bet all the way to -1.5 — the biggest move on the Sunday slate, toward the Jets."},
-{id:59,out:1,lg:"NFL",k:"2026-09-13T13:00",a:"Cleveland Browns",h:"Jacksonville Jaguars",s:-7.5,t:40.5,pub:{ml:[93,81],ats:[40,71],ou:[47,46]},venue:"EverBank Stadium, Jacksonville (outdoor)",ka:0.78,kats:52,kov:47,p:[14,24],ag:[2,1],note:"SportsLine's model backs the Jaguars."},
-{id:60,out:1,lg:"NFL",k:"2026-09-13T13:00",a:"Atlanta Falcons",h:"Pittsburgh Steelers",s:-3.5,t:42.5,pub:{ml:[84,70],ats:[41,63],ou:[35,35]},venue:"Acrisure Stadium, Pittsburgh (outdoor)",ka:0.61,kats:44,kov:48,books:{dk:{s:-3.5,t:42.5,ma:154,mh:-185,open:{s:-3,mh:-175}}},p:[20,23],ag:[1,1],note:"Kalshi: Falcons 56% to cover +3.5, but DraftKings moved from -3 to -3.5 on Pittsburgh — the two markets disagree, which caps confidence."},
-{id:61,out:1,lg:"NFL",k:"2026-09-13T16:25",a:"Washington Commanders",h:"Philadelphia Eagles",s:-4.5,t:45.5,pub:{ml:[94,89],ats:[51,73],ou:[18,17]},venue:"Lincoln Financial Field, Philadelphia (outdoor)",ka:0.68,kats:52,kov:49,p:[20,27],ag:[2,0],note:"SportsLine's model backs the Eagles; spread has shortened from -5.5."},
-{id:62,out:1,lg:"NFL",k:"2026-09-13T16:25",a:"Green Bay Packers",h:"Minnesota Vikings",s:1.5,t:45.5,pub:{ml:[50,44],ats:[71,70],ou:[11,11]},venue:"U.S. Bank Stadium, Minneapolis (dome)",inj:"GB: DE Micah Parsons — reserve-list consequences reported.",ka:0.51,kats:48,kov:49,books:{dk:{ma:-125,mh:105}},p:[24,22],ag:[0,0]},
-{id:63,out:1,lg:"NFL",k:"2026-09-13T16:25",a:"Arizona Cardinals",h:"Los Angeles Chargers",s:-10.5,t:46.5,pub:{ml:[96,81],ats:[38,79],ou:[11,13]},venue:"SoFi Stadium, Inglewood (roofed)",ka:0.81,kats:46,kov:47,books:{dk:{ma:455,mh:-625}},p:[16,30],ag:[1,1],note:"Biggest NFL favorite of the week (81% on Kalshi); public money on Cardinals +10.5."},
-{id:64,out:1,lg:"NFL",k:"2026-09-13T16:25",a:"Miami Dolphins",h:"Las Vegas Raiders",s:-3.5,t:40.5,pub:{ml:[87,64],ats:[42,69],ou:[44,39]},venue:"Allegiant Stadium, Las Vegas (dome)",inj:"LV: RB Ashton Jeanty — monitoring.",ka:0.64,kats:49,kov:50,books:{dk:{ma:145,mh:-175}},p:[17,23],ag:[0,0],note:"Malik Willis vs Kirk Cousins; No. 1 pick Fernando Mendoza expected to open as backup."},
-{id:65,out:1,lg:"NFL",k:"2026-09-13T20:20",a:"Dallas Cowboys",h:"New York Giants",s:2.5,t:48.5,pub:{ml:[14,13],ats:[66,5],ou:[16,16]},venue:"MetLife Stadium, East Rutherford (outdoor)",inj:"NYG: WR Malik Nabers trending toward available.",ka:0.42,kats:45,kov:50,books:{dk:{ma:-130,mh:110}},p:[27,24],ag:[1,0],note:"John Harbaugh's Giants debut; Kalshi 55% on Cowboys -2.5."},
-{id:66,out:1,lg:"NFL",k:"2026-09-14T20:15",a:"Denver Broncos",h:"Kansas City Chiefs",s:-2.5,t:43.5,pub:{ml:[76,40],ats:[44,25],ou:[33,30]},venue:"GEHA Field at Arrowhead, Kansas City (outdoor)",inj:"KC: QB Patrick Mahomes — return status unconfirmed.",ka:0.56,kats:49,kov:50,books:{dk:{ma:130,mh:-155}},p:[20,23],ag:[0,0],note:"Hinges on Patrick Mahomes' availability."}
+{id:53,out:1,lg:"NFL",k:"2026-09-13T13:00",a:"Chicago Bears",h:"Carolina Panthers",s:2.5,t:47.5,pub:{ml:[15,8],ats:[34,9],ou:[13,19]},venue:"Bank of America Stadium, Charlotte (outdoor)",inj:"CAR: both starting tackles (Ekwonu, Moton) unavailable.",ka:0.41,kats:48,kov:47,books:{dk:{ma:-135,mh:114}},p:[25,21],ag:[1,1]},
+{id:54,out:1,lg:"NFL",k:"2026-09-13T13:00",a:"Tampa Bay Buccaneers",h:"Cincinnati Bengals",s:-3.5,t:50.5,pub:{ml:[87,78],ats:[42,48],ou:[11,28]},venue:"Paycor Stadium, Cincinnati (outdoor)",ka:0.65,kats:50,kov:52,books:{dk:{s:-3.5,t:50.5,ma:164,mh:-198}},p:[24,27],ag:[0,1]},
+{id:55,out:1,lg:"NFL",k:"2026-09-13T13:00",a:"Baltimore Ravens",h:"Indianapolis Colts",s:3.5,t:48.5,pub:{ml:[11,8],ats:[45,34],ou:[16,11]},venue:"Lucas Oil Stadium, Indianapolis (dome)",inj:"BAL: WR Zay Flowers — expected full practice.",ka:0.37,kats:52,kov:51,books:{dk:{s:3.5,t:48.5,ma:-175,mh:145,open:{s:3.5,t:49.5}}},p:[26,22],ag:[1,0],note:"Jesse Minter's first game as Ravens coach; Kalshi has slight Colts-cover lean."},
+{id:56,out:1,lg:"NFL",k:"2026-09-13T13:00",a:"Buffalo Bills",h:"Houston Texans",s:1.5,t:44.5,pub:{ml:[35,29],ats:[44,62],ou:[23,20]},venue:"NRG Stadium, Houston (retractable roof)",inj:"HOU: WR Tank Dell on IR (designated to return).",ka:0.49,kats:55,kov:50,p:[23,22],ag:[1,0],note:"Kalshi: Texans 55% to cover +1.5, and BetMGM's expert pick is the Texans money line, citing Houston holding Buffalo to -0.164 EPA/play in their 2025 meeting. Sharpest spread lean on the Sunday slate."},
+{id:57,out:1,lg:"NFL",k:"2026-09-13T13:00",a:"New Orleans Saints",h:"Detroit Lions",s:-7,t:49.5,pub:{ml:[96,93],ats:[24,68],ou:[17,27]},venue:"Ford Field, Detroit (dome)",ka:0.74,kats:54,kov:48,books:{dk:{s:-7,t:49.5,ma:240,mh:-298,open:{s:-7,t:48.5,mh:-325}}},p:[20,28],ag:[1,1]},
+{id:58,out:1,lg:"NFL",k:"2026-09-13T13:00",a:"New York Jets",h:"Tennessee Titans",s:-1.5,t:38.5,pub:{ml:[79,75],ats:[57,58],ou:[55,58]},venue:"Nissan Stadium, Nashville (outdoor)",inj:"NYJ: RB Breece Hall — expected full practice.",ka:0.56,kats:51,kov:52,books:{dk:{s:-1.5,t:38.5,ma:110,mh:-130,open:{s:-3,t:39.5,mh:-170}}},p:[18,20],ag:[1,0],note:"Lowest total of the week (38.5). DraftKings opened Titans -3 and has been bet all the way to -1.5 — the biggest move on the Sunday slate, toward the Jets."},
+{id:59,out:1,lg:"NFL",k:"2026-09-13T13:00",a:"Cleveland Browns",h:"Jacksonville Jaguars",s:-7.5,t:40.5,pub:{ml:[93,80],ats:[40,73],ou:[46,47]},venue:"EverBank Stadium, Jacksonville (outdoor)",ka:0.78,kats:52,kov:47,p:[14,24],ag:[2,1],note:"SportsLine's model backs the Jaguars."},
+{id:60,out:1,lg:"NFL",k:"2026-09-13T13:00",a:"Atlanta Falcons",h:"Pittsburgh Steelers",s:-3.5,t:42.5,pub:{ml:[84,71],ats:[41,62],ou:[35,35]},venue:"Acrisure Stadium, Pittsburgh (outdoor)",ka:0.61,kats:44,kov:48,books:{dk:{s:-3.5,t:42.5,ma:154,mh:-185,open:{s:-3,mh:-175}}},p:[20,23],ag:[1,1],note:"Kalshi: Falcons 56% to cover +3.5, but DraftKings moved from -3 to -3.5 on Pittsburgh — the two markets disagree, which caps confidence."},
+{id:61,out:1,lg:"NFL",k:"2026-09-13T16:25",a:"Washington Commanders",h:"Philadelphia Eagles",s:-5.5,t:45.5,pub:{ml:[94,90],ats:[52,73],ou:[18,17]},venue:"Lincoln Financial Field, Philadelphia (outdoor)",ka:0.68,kats:52,kov:49,p:[20,27],ag:[2,0],note:"SportsLine's model backs the Eagles; spread has shortened from -5.5."},
+{id:62,out:1,lg:"NFL",k:"2026-09-13T16:25",a:"Green Bay Packers",h:"Minnesota Vikings",s:1.5,t:45.5,pub:{ml:[50,44],ats:[70,72],ou:[11,12]},venue:"U.S. Bank Stadium, Minneapolis (dome)",inj:"GB: DE Micah Parsons — reserve-list consequences reported.",ka:0.51,kats:48,kov:49,books:{dk:{ma:-125,mh:105}},p:[24,22],ag:[0,0]},
+{id:63,out:1,lg:"NFL",k:"2026-09-13T16:25",a:"Arizona Cardinals",h:"Los Angeles Chargers",s:-10.5,t:46.5,pub:{ml:[96,82],ats:[39,79],ou:[11,13]},venue:"SoFi Stadium, Inglewood (roofed)",ka:0.81,kats:46,kov:47,books:{dk:{ma:455,mh:-625}},p:[16,30],ag:[1,1],note:"Biggest NFL favorite of the week (81% on Kalshi); public money on Cardinals +10.5."},
+{id:64,out:1,lg:"NFL",k:"2026-09-13T16:25",a:"Miami Dolphins",h:"Las Vegas Raiders",s:-3.5,t:40.5,pub:{ml:[87,65],ats:[42,70],ou:[44,39]},venue:"Allegiant Stadium, Las Vegas (dome)",inj:"LV: RB Ashton Jeanty — monitoring.",ka:0.64,kats:49,kov:50,books:{dk:{ma:145,mh:-175}},p:[17,23],ag:[0,0],note:"Malik Willis vs Kirk Cousins; No. 1 pick Fernando Mendoza expected to open as backup."},
+{id:65,out:1,lg:"NFL",k:"2026-09-13T20:20",a:"Dallas Cowboys",h:"New York Giants",s:2.5,t:48.5,pub:{ml:[13,12],ats:[65,5],ou:[16,16]},venue:"MetLife Stadium, East Rutherford (outdoor)",inj:"NYG: WR Malik Nabers trending toward available.",ka:0.42,kats:45,kov:50,books:{dk:{ma:-130,mh:110}},p:[27,24],ag:[1,0],note:"John Harbaugh's Giants debut; Kalshi 55% on Cowboys -2.5."},
+{id:66,out:1,lg:"NFL",k:"2026-09-14T20:15",a:"Denver Broncos",h:"Kansas City Chiefs",s:-3,t:42.5,pub:{ml:[75,39],ats:[44,25],ou:[33,30]},venue:"GEHA Field at Arrowhead, Kansas City (outdoor)",inj:"KC: QB Patrick Mahomes — return status unconfirmed.",ka:0.56,kats:49,kov:50,books:{dk:{ma:130,mh:-155}},p:[20,23],ag:[0,0],note:"Hinges on Patrick Mahomes' availability."}
 ];
 
 /* ---------- MODEL HELPERS ---------- */
@@ -550,15 +595,19 @@ function makeLeg(g,type,side){
   else if(type==="ats"){const sp=side==="h"?g.s:-g.s;label=nm+" "+fmtSpread(sp);prob=an.atsConf/100;odds=-110}
   else if(type==="ou"){label=(side==="o"?"Over ":"Under ")+g.t;prob=an.ouConf/100;odds=-110}
   else if(type==="1h"){const sp=side==="h"?an.h1Spread:-an.h1Spread;label="1H "+nm+" "+fmtSpread(sp);prob=an.h1Conf/100;odds=-110}
-  return {gid:g.id,type,side,label,prob,odds,game:nameShort(g.a)+" @ "+nameShort(g.h),lg:g.lg};
+  return {gid:g.id,mk:matchKey(g),type,side,label,prob,odds,game:nameShort(g.a)+" @ "+nameShort(g.h),lg:g.lg};
 }
 const SIDE_TYPES=["ml","ats","1h"];
 function compatible(existing,type){return !(SIDE_TYPES.includes(type)&&existing.some(t=>SIDE_TYPES.includes(t)))}
-function inSlip(gid,type){return slip.some(l=>l.gid===gid&&l.type===type)}
+let ALIAS_INV_G=null;
+function canon(n){if(!ALIAS_INV_G){ALIAS_INV_G={};Object.keys(ALIAS).forEach(k=>ALIAS_INV_G[norm(ALIAS[k])]=k)}const key=norm(n);if(ALIAS[n])return n;if(ALIAS_INV_G[key])return ALIAS_INV_G[key];const hit=Object.keys(ALIAS_INV_G).find(k=>key.startsWith(k)||k.startsWith(key));return hit?ALIAS_INV_G[hit]:nameShort(n)}
+function matchKey(g){return g.lg+"|"+norm(canon(g.a))+"|"+norm(canon(g.h))}
+function dedupeGames(){const seen={};for(let i=G.length-1;i>=0;i--){const k=matchKey(G[i]);if(seen[k]){if(G[i].added)G.splice(i,1);else{G.splice(seen[k],1);seen[k]=i}}else seen[k]=i}}
+function inSlip(gid,type){const g=G.find(x=>x.id===gid);const k=g?matchKey(g):null;return slip.some(l=>(l.gid===gid||(k&&l.mk===k))&&l.type===type)}
 function toggleLeg(gid,type,side){
-  const i=slip.findIndex(l=>l.gid===gid&&l.type===type);
+  const gk0=matchKey(G.find(g=>g.id===gid));const i=slip.findIndex(l=>(l.gid===gid||l.mk===gk0)&&l.type===type);
   if(i>=0){slip.splice(i,1)}else{
-    const same=slip.filter(l=>l.gid===gid);
+    const gk=matchKey(G.find(g=>g.id===gid));const same=slip.filter(l=>l.mk===gk);
     if(same.length>=2){flash("Only two legs from one game.");return}
     if(!compatible(same.map(l=>l.type),type)){flash("Money line and spread from the same game can't be combined. Pair either one with the total instead.");return}
     if(slip.length>=10){flash("Ten legs max.");return}
@@ -583,12 +632,13 @@ function visibleGames(){
 function topConf(g){const an=A[g.id];return Math.max(an.mlProb*100,an.atsConf,an.ouConf)}
 function applyView(){
   document.getElementById("boardHost").style.display=view==="parlay"?"none":"";
-  document.getElementById("panels").style.display=view==="singles"?"none":"";
-  document.getElementById("stack").classList.toggle("split",view==="both");
+  const sb=document.getElementById("slipBar");sb.style.display=view==="both"?"block":"none";
+  const cs=getComputedStyle(document.querySelector(".controls"));sb.style.top=(cs.position==="sticky"?document.querySelector(".controls").offsetHeight+4:0)+"px";
+  document.getElementById("panels").style.display=view==="parlay"?"":"none";
   const fab=document.getElementById("slipFab");fab.style.display=(slip.length&&view==="singles")?"block":"none";fab.querySelector("i").textContent=slip.length;
 }
-function showSlip(){setView("both");setTimeout(()=>document.getElementById("parlay").scrollIntoView({behavior:"smooth"}),50)}
-function setView(v){view=v;document.querySelectorAll("#viewSeg button").forEach(x=>x.classList.toggle("on",x.dataset.v===v));applyView()}
+function showSlip(){setView("both");window.scrollTo({top:document.getElementById("slipBar").offsetTop-10,behavior:"smooth"})}
+function setView(v){view=v;document.querySelectorAll("#viewSeg button").forEach(x=>x.classList.toggle("on",x.dataset.v===v));render()}
 function render(){
   applyView();
   const host=document.getElementById("boardHost"); host.innerHTML="";
@@ -607,7 +657,7 @@ function render(){
       h.innerHTML=sort==="time"?dayLabel(dk)+' <small>'+(isOut(g)?"beyond the next 7 days":"")+'</small>':'All games <small>sorted by '+(sort==="conf"?"confidence":sort==="sharp"?"sharp-signal strength":"closest spread")+'</small>';
       host.appendChild(h);
       board=document.createElement("div");board.className="board";
-      board.innerHTML=(view==="both"?'<div class="hdr"><div>Kick</div><div>Matchup</div><div>Lines by book</div><div>Projected</div><div>Picks &amp; confidence</div><div></div></div>':'<div class="hdr"><div>Kick</div><div>Matchup</div><div>BetMGM</div><div>DraftKings</div><div>FanDuel</div><div>Projected</div><div>Picks &amp; confidence</div><div></div></div>');
+      board.innerHTML='<div class="hdr"><div>Kick</div><div>Matchup</div><div>BetMGM</div><div>DraftKings</div><div>FanDuel</div><div>Projected</div><div>Picks &amp; confidence</div><div></div></div>';
       host.appendChild(board);
     }
     board.appendChild(rowEl(g));
@@ -644,8 +694,24 @@ function pickRow(g,type,side,label,conf,lo,hi){
   const on=inSlip(g.id,type);
   if(!inRange(conf)){ if(confMode==="picks")return ''; }
   return '<div class="pk'+(inRange(conf)?'':' dim')+'"><span class="lbl">'+label+'</span><span class="bar '+confClass(conf)+'"><i style="width:'+pctBar(conf,lo,hi)+'%"></i></span><span class="pc">'+Math.round(conf)+'%</span>'+
-    '<button class="'+(on?"in":"")+'" title="'+(on?"Remove from slip":"Add to slip")+'" onclick="toggleLeg('+g.id+',\''+type+'\',\''+side+'\')">'+(view==="both"?(on?"✓":"+"):(on?"In slip":"+ Slip"))+'</button></div>'+splitLine(g,type);
+    '<button class="'+(on?"in":"")+'" title="'+(on?"Remove from slip":"Add to slip")+'" onclick="toggleLeg('+g.id+',\''+type+'\',\''+side+'\')">'+(on?"In slip":"+ Slip")+'</button></div>'+splitLine(g,type);
 }
+function recommend(g){
+  const an=A[g.id];const H=nameShort(g.h),A_=nameShort(g.a);
+  const mlBv=bookVal(g,"dk",an.mlSide==="h"?"mh":"ma");const mlOdds=mlBv.v;const mlImp=amToProb(mlOdds);
+  const mlEdge=(mlBv.est||mlOdds<=-400)?-99:(an.mlProb-mlImp)*100; // no ML rec on estimated prices or heavy chalk
+  const c=[
+    {type:"ml",side:an.mlSide,label:(an.mlSide==="h"?H:A_)+" money line ("+fmtAm(mlOdds)+")",conf:an.mlProb*100,edge:mlEdge},
+    {type:"ats",side:an.atsSide,label:(an.atsSide==="h"?H:A_)+" "+fmtSpread(an.atsSide==="h"?g.s:-g.s),conf:an.atsConf,edge:an.atsConf-52.4},
+    {type:"ou",side:an.ouSide,label:(an.ouSide==="o"?"Over ":"Under ")+g.t,conf:an.ouConf,edge:an.ouConf-52.4},
+    {type:"1h",side:an.h1Side,label:"1H "+(an.h1Side==="h"?H:A_)+" "+fmtSpread(an.h1Side==="h"?an.h1Spread:-an.h1Spread),conf:an.h1Conf,edge:an.h1Conf-52.4-1}
+  ];
+  c.sort((x,y)=>y.edge-x.edge);
+  const best=c[0];const second=c[1];
+  const pass=best.edge<1;
+  return {best,second,pass,text:pass?"No clear edge at current prices — pass, or small lean "+best.label:"Recommended: "+best.label+" ("+Math.round(best.conf)+"%)"+(second.edge>=1?" · also lean "+second.label+" ("+Math.round(second.conf)+"%)":"")};
+}
+function recBox(g){const r=recommend(g);return '<div class="rec'+(r.pass?' pass':'')+'">'+(r.pass?'<b>Pass</b> — no clear edge; best lean '+r.best.label+' ('+Math.round(r.best.conf)+'%)':'<b>Best bet:</b> '+r.best.label+' <span class="edge">'+Math.round(r.best.conf)+'% · +'+r.best.edge.toFixed(1)+' pts vs break-even</span>'+(r.second.edge>=1?'<br><span style="color:var(--ink-2)">Also lean:</span> '+r.second.label+' <span class="edge">'+Math.round(r.second.conf)+'%</span>':''))+'</div>'}
 function mmBadge(g){const sr=g._sr;if(!sr||(!sr.hasData&&!sr.hasMove))return '';if(!sr.sig.length)return '<span class="mm agree" title="No sharp signal: public, money and line movement agree">Pros &amp; public aligned</span>';const tags=[...new Set(sr.sig.map(x=>x.tag))];const ab={"Reverse line movement":"RLM","Sharp money split":"Sharp $","Steam move":"Steam","Contrarian":"Fade public"};return '<span class="mm" title="'+sr.sig.map(x=>x.mkt+' — '+x.detail).join(' · ')+'">'+tags.map(t=>ab[t]).join(' · ')+'</span>'}
 function rowEl(g){
   const an=A[g.id]; const d=document.createElement("div"); d.className="row"+(isOut(g)?" outside":""); d.dataset.id=g.id;
@@ -655,9 +721,9 @@ function rowEl(g){
   d.innerHTML=
     '<div class="t">'+timeLabel(g.k)+'<small>'+(g.lg==="NFL"?'<span class="tag nfl">NFL</span>':'<span class="tag cfb">NCAA</span>')+(g.out?' beyond 7d':'')+'</small></div>'+
     '<div class="teams"><div class="tm"><span>'+rk(0)+g.a+'</span><span>'+(g.n?'':'away')+'</span></div><div class="tm"><span>'+rk(1)+g.h+'</span><span>'+(g.n?'neutral':'home')+'</span></div>'+(g.n?'<div class="vs">'+g.n+'</div>':'')+'</div>'+
-    (view==="both"?'<div class="bk3">'+bookMini(g)+'</div>':'<div>'+bookCell(g,"mgm")+'</div><div>'+bookCell(g,"dk")+'</div><div>'+bookCell(g,"fd")+'</div>')+
+    '<div>'+bookCell(g,"mgm")+'</div><div>'+bookCell(g,"dk")+'</div><div>'+bookCell(g,"fd")+'</div>'+
     '<div class="pred"><div class="sc">'+g.p[0]+'<span>–</span>'+g.p[1]+'</div><small>'+(an.margin>=0?nameShort(g.h):nameShort(g.a))+' by '+Math.abs(an.margin)+' · '+an.total+' pts</small>'+mmBadge(g)+'</div>'+
-    '<div class="picks">'+
+    '<div class="picks">'+recBox(g)+
       pickRow(g,"ml",an.mlSide,mlNm+" ML",an.mlProb*100,50,100)+
       pickRow(g,"ats",an.atsSide,atsNm+" "+fmtSpread(atsSp),an.atsConf,50,62)+
       pickRow(g,"ou",an.ouSide,(an.ouSide==="o"?"Over ":"Under ")+g.t,an.ouConf,50,62)+
@@ -683,21 +749,47 @@ function detailEl(g,an){
   const ctx=[];if(g.venue)ctx.push('<b>Venue:</b> '+g.venue+(g.n?'':' — home team'));if(g.wx)ctx.push('<b>Weather:</b> '+g.wx);if(g.inj)ctx.push('<b>Injuries / availability:</b> '+g.inj);
   const sr=g._sr;let splitHtml='';
   if(sr&&sr.sig.length){splitHtml+='<h4 style="margin-top:10px">Sharp signals</h4><ul style="margin:0 0 6px 18px;padding:0;font-size:13px">'+sr.sig.map(x=>'<li><b>'+x.tag+'</b> ('+x.mkt+') → <span class="pro">'+x.side+'</span>: '+x.detail+'</li>').join('')+'</ul>'}
-  if(sr&&sr.hasData){splitHtml+='<h4 style="margin-top:10px">Public vs pros</h4><table class="split"><tr><th>Market</th><th>% of bets</th><th>% of money</th><th>Public side</th><th>Money / pro side</th></tr>'+sr.items.map(x=>'<tr'+(x.mismatch?' style="background:var(--red-bg)"':'')+'><td>'+x.mkt+(x.tags.length?'<br><span style="font-size:10.5px;color:var(--ink-3)">'+x.tags.join(', ')+'</span>':'')+'</td><td>'+x.bets+'% '+(x.mkt==="Total"?"Over":nameShort(g.h))+'</td><td>'+x.money+'% '+(x.mkt==="Total"?"Over":nameShort(g.h))+'</td><td>'+x.pubSide+'</td><td class="'+(x.mismatch?'pro':'')+'">'+(x.proSide||'no clear lean')+(x.mismatch?' ◀ mismatch':'')+'</td></tr>').join('')+'</table><p style="font-size:11.5px;color:var(--ink-3);margin:4px 0 0">Bets = share of tickets (the public). Money = share of dollars. Sharp money split = money and tickets differ by 15+ points (the money side is the pro side). Reverse line movement = the line moved against the side holding the majority of tickets. Steam = a move of 1+ point (spread/total) or 6+ percentage points of win probability (money line) since open. Contrarian = 70%+ of tickets on one side, a fade-the-public candidate. Splits: ScoresAndOdds consensus and SportsBettingDime (NFL and NCAAF), Thu Sep 3; line moves: DraftKings via ESPN and reported opening numbers.</p>'}
+  if(sr&&sr.hasData){splitHtml+='<h4 style="margin-top:10px">Public vs pros</h4><table class="split"><tr><th>Market</th><th>% of bets</th><th>% of money</th><th>Public side</th><th>Money / pro side</th></tr>'+sr.items.map(x=>'<tr'+(x.mismatch?' style="background:var(--red-bg)"':'')+'><td>'+x.mkt+(x.tags.length?'<br><span style="font-size:10.5px;color:var(--ink-3)">'+x.tags.join(', ')+'</span>':'')+'</td><td>'+x.bets+'% '+(x.mkt==="Total"?"Over":nameShort(g.h))+'</td><td>'+x.money+'% '+(x.mkt==="Total"?"Over":nameShort(g.h))+'</td><td>'+x.pubSide+'</td><td class="'+(x.mismatch?'pro':'')+'">'+(x.proSide||'no clear lean')+(x.mismatch?' ◀ mismatch':'')+'</td></tr>').join('')+'</table><p style="font-size:11.5px;color:var(--ink-3);margin:4px 0 0">Bets = share of tickets (the public). Money = share of dollars. Sharp money split = money and tickets differ by 15+ points (the money side is the pro side). Reverse line movement = the line moved against the side holding the majority of tickets. Steam = a move of 1+ point (spread/total) or 6+ percentage points of win probability (money line) since open. Contrarian = 70%+ of tickets on one side, a fade-the-public candidate. Splits: ScoresAndOdds consensus (NFL and NCAAF) Fri Sep 4, SportsBettingDime Sep 2 for games not yet on the consensus page; line moves: DraftKings via ESPN and reported opening numbers.</p>'}
   else splitHtml+='<p style="font-size:11.5px;color:var(--ink-3);margin-top:8px">No public/pro betting split published for this game yet'+(sr&&sr.hasMove?'; signals above are from line movement only':'')+'.</p>';
   return '<div>'+(ctx.length?'<p class="ctx">'+ctx.join('<br>')+'</p>':'')+'<h4>Projected by period</h4><table class="qt"><tr><th></th><th>Q1</th><th>Q2</th><th>1H</th><th>Q3</th><th>Q4</th><th>2H</th><th>Final</th></tr>'+
     '<tr><td>'+A_+'</td><td>'+q[0][0]+'</td><td>'+q[1][0]+'</td><td>'+an.h1[0]+'</td><td>'+q[2][0]+'</td><td>'+q[3][0]+'</td><td>'+an.h2[0]+'</td><td><b>'+g.p[0]+'</b></td></tr>'+
     '<tr><td>'+H_+'</td><td>'+q[0][1]+'</td><td>'+q[1][1]+'</td><td>'+an.h1[1]+'</td><td>'+q[2][1]+'</td><td>'+q[3][1]+'</td><td>'+an.h2[1]+'</td><td><b>'+g.p[1]+'</b></td></tr></table>'+seg+qp+'</div>'+
-    '<div class="notes"><h4>Why</h4><p>'+(g.note||'Market-driven projection: consensus spread sets the margin, consensus total sets the scoring level. No strong outside lean published on this game.')+'</p>'+
+    '<div class="notes"><h4>Why</h4><p style="font-weight:600;color:var(--green)">'+recommend(g).text+'</p><p>'+(g.note||'Market-driven projection: consensus spread sets the margin, consensus total sets the scoring level. No strong outside lean published on this game.')+'</p>'+
     (srcs.length?'<p>'+srcs.join('<br>')+'</p>':'')+
     '<p>Blended win probability: '+H_+' '+Math.round(an.pHome*100)+'%, '+A_+' '+Math.round((1-an.pHome)*100)+'%.</p>'+splitHtml+'</div>';
 }
 
 /* ---------- SLIP / PARLAY ---------- */
+let legDetail=true;
+function legCard(l,i){
+  const g=G.find(x=>x.id===l.gid); const an=A[g.id]; const H=nameShort(g.h),A_=nameShort(g.a);
+  const sr=g._sr||{sig:[]}; const mkt=l.type==="ml"?"Money line":l.type==="ats"?"Spread":l.type==="ou"?"Total":"Spread";
+  const sigs=sr.sig.filter(x=>x.mkt===mkt);
+  const ctx=[];if(g.venue)ctx.push('<b>Venue:</b> '+g.venue);if(g.wx)ctx.push('<b>Weather:</b> '+g.wx);if(g.inj)ctx.push('<b>Injuries:</b> '+g.inj);
+  const note=(g.note||'').split(/(?<=\.)\s/).slice(0,2).join(' ');
+  return '<div class="legcard">'+
+    '<div class="lc-h"><span class="lbl">'+l.label+'</span><span class="tag '+(g.lg==="NFL"?"nfl":"cfb")+'">'+(g.lg==="NFL"?"NFL":"NCAA")+'</span><span>'+A_+' @ '+H+(g.n?' · '+g.n:'')+'</span><span style="color:var(--ink-3)">'+dayLabel(dayKey(g.k))+' '+timeLabel(g.k)+'</span><span class="conf">'+Math.round(l.prob*100)+'% · '+fmtAm(l.odds)+'</span><button class="x" onclick="removeLeg('+i+')" title="Remove">×</button></div>'+
+    '<div><h5>Lines by book</h5>'+bookMini(g)+'</div>'+
+    '<div><h5>Projection</h5><div class="sc">'+g.p[0]+' – '+g.p[1]+'</div><div style="color:var(--ink-2);font-size:12px">'+(an.margin>=0?H:A_)+' by '+Math.abs(an.margin)+' · '+an.total+' pts · 1H '+an.h1[0]+'–'+an.h1[1]+'</div><div style="font-size:12px;margin-top:4px">ML '+(an.mlSide==="h"?H:A_)+' '+Math.round(an.mlProb*100)+'% · Spread '+(an.atsSide==="h"?H:A_)+' '+Math.round(an.atsConf)+'% · '+(an.ouSide==="o"?"Over":"Under")+' '+Math.round(an.ouConf)+'%'+(g.fpi!=null?' · FPI '+H+' '+Math.round(g.fpi*100)+'%':'')+(g.ka!=null?' · Kalshi '+H+' '+Math.round(g.ka*100)+'%':'')+'</div></div>'+
+    '<div><h5>Public vs money</h5>'+(splitLine(g,l.type==="1h"?"ats":l.type)||'<span class="sb-empty">No split published</span>')+(sigs.length?'<div style="margin-top:4px;font-size:12px">'+sigs.map(x=>'<span class="mm" style="margin:2px 2px 0 0">'+x.tag+' → '+x.side+'</span>').join('')+'</div>':'')+'</div>'+
+    '<div><h5>Game context</h5>'+(ctx.length?'<div style="font-size:12px;line-height:1.45">'+ctx.join('<br>')+'</div>':'<span class="sb-empty">No venue/injury notes yet — Refresh pulls ESPN venue, forecast and NFL injuries.</span>')+'</div>'+
+    '<div class="why" style="border-top:0;padding-top:0"><b>Board recommendation for this game:</b> '+recommend(g).text.replace(/^Recommended: /,'')+(recommend(g).best.type===l.type?' <span class="tag" style="background:var(--green-bg);color:var(--green);border-color:#BFE0CC">this leg is the top pick</span>':' <span class="tag">this leg is a secondary lean</span>')+'</div>'+
+    (note?'<div class="why"><b>Why:</b> '+note+'</div>':'')+
+  '</div>';
+}
+function renderSlipBar(){
+  const legs=document.getElementById("sbLegs"), sum=document.getElementById("sbSum");
+  if(!slip.length){legs.innerHTML='<span class="sb-empty">No legs yet — tap + Slip on any pick, or Build.</span>';sum.innerHTML='';return}
+  legs.innerHTML=legDetail?slip.map((l,i)=>legCard(l,i)).join(""):slip.map((l,i)=>'<span class="chip">'+l.label+' <small>'+l.game+'</small> <b>'+Math.round(l.prob*100)+'%</b> <small>'+fmtAm(l.odds)+'</small><button onclick="removeLeg('+i+')" title="Remove">×</button></span>').join("");
+  legs.style.display=legDetail?"block":"flex";
+  const prob=slip.reduce((p,l)=>p*l.prob,1), dec=slip.reduce((p,l)=>p*amToDec(l.odds),1); const am=dec>=2?Math.round((dec-1)*100):Math.round(-100/(dec-1));
+  sum.innerHTML=slip.length+' legs · <b>'+(prob*100).toFixed(1)+'%</b> to hit · <b>'+fmtAm(am)+'</b> · $100 pays <b>$'+Math.round(dec*100).toLocaleString()+'</b>'+(prob>1/dec?' · <span style="color:var(--green)">model edge</span>':' · <span style="color:var(--ink-3)">no edge at price</span>');
+}
 function renderSlip(){
+  renderSlipBar();
   const el=document.getElementById("slip"), sum=document.getElementById("slipSum"), note=document.getElementById("slipNote");
   if(!slip.length){el.innerHTML='<div class="empty">No legs yet. Use "Build parlay" or the + Slip buttons on any row.</div>';sum.style.display="none";note.style.display="none";return}
-  el.innerHTML=slip.map((l,i)=>'<div class="leg"><span>'+l.label+'<br><span class="m">'+l.game+' <span class="tag '+(l.lg==="NFL"?"nfl":"cfb")+'">'+(l.lg==="NFL"?"NFL":"NCAA")+'</span></span></span><span>'+Math.round(l.prob*100)+'%</span><span class="m">'+fmtAm(l.odds)+'</span><button class="x" onclick="removeLeg('+i+')" title="Remove">×</button></div>').join("");
+  el.innerHTML=legDetail?slip.map((l,i)=>legCard(l,i)).join(""):slip.map((l,i)=>'<div class="leg"><span>'+l.label+'<br><span class="m">'+l.game+' <span class="tag '+(l.lg==="NFL"?"nfl":"cfb")+'">'+(l.lg==="NFL"?"NFL":"NCAA")+'</span></span></span><span>'+Math.round(l.prob*100)+'%</span><span class="m">'+fmtAm(l.odds)+'</span><button class="x" onclick="removeLeg('+i+')" title="Remove">×</button></div>').join("");
   const prob=slip.reduce((p,l)=>p*l.prob,1); const dec=slip.reduce((p,l)=>p*amToDec(l.odds),1);
   const am=dec>=2?Math.round((dec-1)*100):Math.round(-100/(dec-1));
   document.getElementById("sumProb").textContent=(prob*100).toFixed(1)+"%";
@@ -710,6 +802,7 @@ function renderSlip(){
 }
 function removeLeg(i){slip.splice(i,1);render();applyView()}
 function buildParlay(){
+  if(view==="both"){document.getElementById("legCount").value=document.getElementById("legCount2").value;document.getElementById("parlayTypes").value=document.getElementById("parlayTypes2").value;document.getElementById("minMl").value=document.getElementById("minMl2").value;document.getElementById("parlayLg").value=league}
   const n=+document.getElementById("legCount").value; const lg=document.getElementById("parlayLg").value; const types=document.getElementById("parlayTypes").value; const minMl=Number.isFinite(+document.getElementById("minMl").value)&&document.getElementById("minMl").value!==""?+document.getElementById("minMl").value:-100000;
   const pool=[];
   G.filter(g=>(lg==="ALL"||g.lg===lg)&&inWindow(g)&&(!hideFcs||!g.fcs)).forEach(g=>{
@@ -727,14 +820,15 @@ function buildParlay(){
   slip.length=0; const perGame={};
   for(const l of pool){
     if(slip.length>=n)break;
-    if((perGame[l.gid]||0)>=2)continue;
-    if(slip.some(s=>s.gid===l.gid&&s.type===l.type))continue;
-    if(!compatible(slip.filter(s=>s.gid===l.gid).map(s=>s.type),l.type))continue;
-    slip.push(l);perGame[l.gid]=(perGame[l.gid]||0)+1;
+    if((perGame[l.mk]||0)>=2)continue;
+    if(slip.some(s=>s.mk===l.mk&&s.type===l.type))continue;
+    if(!compatible(slip.filter(s=>s.mk===l.mk).map(s=>s.type),l.type))continue;
+    slip.push(l);perGame[l.mk]=(perGame[l.mk]||0)+1;
   }
   if(view==="singles")setView("both");
+  if(!slip.length&&view==="both")document.getElementById("sbLegs").innerHTML='<span class="sb-empty" style="color:var(--red)">No legs fall inside the '+confMin+'–'+confMax+'% range with these filters.</span>';
   if(!slip.length)flash('No legs fall inside the '+confMin+'–'+confMax+'% confidence range with these filters.');
-  render(); document.getElementById("slip").scrollIntoView({behavior:"smooth",block:"center"});
+  render(); if(view!=="both")document.getElementById("slip").scrollIntoView({behavior:"smooth",block:"center"});
 }
 
 /* ---------- HIGH-CONFIDENCE BOARD ---------- */
@@ -754,6 +848,7 @@ function renderHC(){
     }
   });
   const filtered=items.filter(it=>inRange(it.c)); filtered.sort((x,y)=>y.c-x.c); items.length=0; items.push(...filtered);
+  const inl=document.getElementById("hcInline");if(inl&&inl.style.display!=="none"){inl.innerHTML='<ul class="hc">'+items.slice(0,12).map(it=>'<li><span>'+it.l+'<small>'+it.g+'</small></span><b>'+Math.round(it.c)+'%</b>'+(it.type?'<button class="btn ghost" style="padding:2px 8px;font-size:12px" onclick="toggleLeg('+it.gid+',\''+it.type+'\',\''+it.side+'\')">'+(inSlip(it.gid,it.type)?"In slip":"+ Slip")+'</button>':'<span></span>')+'</li>').join("")+'</ul>'}
   const ul=document.getElementById("hcList");
   ul.innerHTML=items.slice(0,n).map(it=>'<li><span>'+it.l+'<small>'+it.g+' <span class="tag '+(it.lg==="NFL"?"nfl":"cfb")+'">'+(it.lg==="NFL"?"NFL":"NCAA")+'</span></small></span><b>'+Math.round(it.c)+'%</b>'+(it.type?'<button class="btn ghost" style="padding:3px 9px;font-size:12px" onclick="toggleLeg('+it.gid+',\''+it.type+'\',\''+it.side+'\')">'+(inSlip(it.gid,it.type)?"In slip":"+ Slip")+'</button>':'<span></span>')+'</li>').join("")||'<li class="empty">Nothing to show.</li>';
 }
@@ -770,8 +865,8 @@ document.getElementById("mmSel").addEventListener("change",e=>{mmOnly=e.target.v
 document.getElementById("confMode").addEventListener("change",e=>{confMode=e.target.value;render()});
 
 /* ---------- LIVE ODDS (The Odds API) ---------- */
-const ALIAS={"Miami":"Miami Hurricanes","Miami (OH)":"Miami (OH) RedHawks","Ohio":"Ohio Bobcats","Ohio State":"Ohio State Buckeyes","Washington":"Washington Huskies","Washington State":"Washington State Cougars","Georgia":"Georgia Bulldogs","Georgia State":"Georgia State Panthers","Georgia Tech":"Georgia Tech Yellow Jackets","Georgia Southern":"Georgia Southern Eagles","Texas":"Texas Longhorns","Texas State":"Texas State Bobcats","Texas A&M":"Texas A&M Aggies","Texas Tech":"Texas Tech Red Raiders","Michigan":"Michigan Wolverines","Michigan State":"Michigan State Spartans","Western Michigan":"Western Michigan Broncos","Eastern Michigan":"Eastern Michigan Eagles","Oklahoma":"Oklahoma Sooners","Oklahoma State":"Oklahoma State Cowboys","Oregon":"Oregon Ducks","Oregon State":"Oregon State Beavers","Florida":"Florida Gators","Florida State":"Florida State Seminoles","Florida Atlantic":"Florida Atlantic Owls","Kansas":"Kansas Jayhawks","Kansas State":"Kansas State Wildcats","Iowa":"Iowa Hawkeyes","Iowa State":"Iowa State Cyclones","Indiana":"Indiana Hoosiers","Indiana State":"Indiana State Sycamores","Colorado":"Colorado Buffaloes","Colorado State":"Colorado State Rams","Arkansas":"Arkansas Razorbacks","Arkansas State":"Arkansas State Red Wolves","Louisiana":"Louisiana Ragin' Cajuns","Utah":"Utah Utahs","Utah State":"Utah State Aggies","San Jose State":"San José State Spartans","California":"California Golden Bears","UMass":"UMass Minutemen","UCF":"UCF Knights","UAB":"UAB Blazers","UTEP":"UTEP Miners","LSU":"LSU Tigers","SMU":"SMU Mustangs","UCLA":"UCLA Bruins","USC":"USC Trojans","UNLV":"UNLV Rebels","BYU":"BYU Cougars","LIU":"Long Island University Sharks","NC A&T":"North Carolina A&T Aggies","Ole Miss":"Ole Miss Rebels","Pitt":"Pittsburgh Panthers","Penn State":"Penn State Nittany Lions","Notre Dame":"Notre Dame Fighting Irish","Boston College":"Boston College Eagles","Boise State":"Boise State Broncos","Ball State":"Ball State Cardinals","Kent State":"Kent State Golden Flashes","North Texas":"North Texas Mean Green","Northern Illinois":"Northern Illinois Huskies","Fresno State":"Fresno State Bulldogs","Western Kentucky":"Western Kentucky Hilltoppers","Nevada":"Nevada Wolf Pack","Hawaii":"Hawaii Rainbow Warriors","Idaho":"Idaho Vandals","Delaware":"Delaware Blue Hens","Buffalo":"Buffalo Bulls","Akron":"Akron Zips","Toledo":"Toledo Rockets","Tulsa":"Tulsa Golden Hurricane","Tulane":"Tulane Green Wave","Duke":"Duke Blue Devils","Memphis":"Memphis Tigers","Liberty":"Liberty Flames","James Madison":"James Madison Dukes","Coastal Carolina":"Coastal Carolina Chanticleers","West Virginia":"West Virginia Mountaineers","Houston":"Houston Cougars","Nebraska":"Nebraska Cornhuskers","Illinois":"Illinois Fighting Illini","Minnesota":"Minnesota Golden Gophers","Rutgers":"Rutgers Scarlet Knights","Purdue":"Purdue Boilermakers","Marshall":"Marshall Thundering Herd","Baylor":"Baylor Bears","Auburn":"Auburn Tigers","Cincinnati":"Cincinnati Bearcats","Clemson":"Clemson Tigers","Louisville":"Louisville Cardinals","Wisconsin":"Wisconsin Badgers","Missouri":"Missouri Tigers","Missouri State":"Missouri State Bears","Tennessee":"Tennessee Volunteers","Tennessee State":"Tennessee State Tigers","South Carolina":"South Carolina Gamecocks","East Carolina":"East Carolina Pirates","Alabama":"Alabama Crimson Tide","Wyoming":"Wyoming Cowboys","Stanford":"Stanford Cardinal","Wake Forest":"Wake Forest Demon Deacons","Furman":"Furman Paladins","Merrimack":"Merrimack Warriors","UAlbany":"Albany Great Danes","Eastern Illinois":"Eastern Illinois Panthers","Arkansas-Pine Bluff":"Arkansas-Pine Bluff Golden Lions","Bethune-Cookman":"Bethune-Cookman Wildcats"};
-function norm(x){return x.toLowerCase().replace(/[^a-z0-9]/g,"")}
+const ALIAS={"Miami":"Miami Hurricanes","Miami (OH)":"Miami (OH) RedHawks","Ohio":"Ohio Bobcats","Ohio State":"Ohio State Buckeyes","Washington":"Washington Huskies","Washington State":"Washington State Cougars","Georgia":"Georgia Bulldogs","Georgia State":"Georgia State Panthers","Georgia Tech":"Georgia Tech Yellow Jackets","Georgia Southern":"Georgia Southern Eagles","Texas":"Texas Longhorns","Texas State":"Texas State Bobcats","Texas A&M":"Texas A&M Aggies","Texas Tech":"Texas Tech Red Raiders","Michigan":"Michigan Wolverines","Michigan State":"Michigan State Spartans","Western Michigan":"Western Michigan Broncos","Eastern Michigan":"Eastern Michigan Eagles","Oklahoma":"Oklahoma Sooners","Oklahoma State":"Oklahoma State Cowboys","Oregon":"Oregon Ducks","Oregon State":"Oregon State Beavers","Florida":"Florida Gators","Florida State":"Florida State Seminoles","Florida Atlantic":"Florida Atlantic Owls","Kansas":"Kansas Jayhawks","Kansas State":"Kansas State Wildcats","Iowa":"Iowa Hawkeyes","Iowa State":"Iowa State Cyclones","Indiana":"Indiana Hoosiers","Indiana State":"Indiana State Sycamores","Colorado":"Colorado Buffaloes","Colorado State":"Colorado State Rams","Arkansas":"Arkansas Razorbacks","Arkansas State":"Arkansas State Red Wolves","Louisiana":"Louisiana Ragin' Cajuns","Utah":"Utah Utahs","Utah State":"Utah State Aggies","San Jose State":"San Jose State Spartans","California":"California Golden Bears","UMass":"UMass Minutemen","UCF":"UCF Knights","UAB":"UAB Blazers","UTEP":"UTEP Miners","LSU":"LSU Tigers","SMU":"SMU Mustangs","UCLA":"UCLA Bruins","USC":"USC Trojans","UNLV":"UNLV Rebels","BYU":"BYU Cougars","LIU":"Long Island University Sharks","NC A&T":"North Carolina A&T Aggies","Ole Miss":"Ole Miss Rebels","Pitt":"Pittsburgh Panthers","Penn State":"Penn State Nittany Lions","Notre Dame":"Notre Dame Fighting Irish","Boston College":"Boston College Eagles","Boise State":"Boise State Broncos","Ball State":"Ball State Cardinals","Kent State":"Kent State Golden Flashes","North Texas":"North Texas Mean Green","Northern Illinois":"Northern Illinois Huskies","Fresno State":"Fresno State Bulldogs","Western Kentucky":"Western Kentucky Hilltoppers","Nevada":"Nevada Wolf Pack","Hawaii":"Hawaii Rainbow Warriors","Idaho":"Idaho Vandals","Delaware":"Delaware Blue Hens","Buffalo":"Buffalo Bulls","Akron":"Akron Zips","Toledo":"Toledo Rockets","Tulsa":"Tulsa Golden Hurricane","Tulane":"Tulane Green Wave","Duke":"Duke Blue Devils","Memphis":"Memphis Tigers","Liberty":"Liberty Flames","James Madison":"James Madison Dukes","Coastal Carolina":"Coastal Carolina Chanticleers","West Virginia":"West Virginia Mountaineers","Houston":"Houston Cougars","Nebraska":"Nebraska Cornhuskers","Illinois":"Illinois Fighting Illini","Minnesota":"Minnesota Golden Gophers","Rutgers":"Rutgers Scarlet Knights","Purdue":"Purdue Boilermakers","Marshall":"Marshall Thundering Herd","Baylor":"Baylor Bears","Auburn":"Auburn Tigers","Cincinnati":"Cincinnati Bearcats","Clemson":"Clemson Tigers","Louisville":"Louisville Cardinals","Wisconsin":"Wisconsin Badgers","Missouri":"Missouri Tigers","Missouri State":"Missouri State Bears","Tennessee":"Tennessee Volunteers","Tennessee State":"Tennessee State Tigers","South Carolina":"South Carolina Gamecocks","East Carolina":"East Carolina Pirates","Alabama":"Alabama Crimson Tide","Wyoming":"Wyoming Cowboys","Stanford":"Stanford Cardinal","Wake Forest":"Wake Forest Demon Deacons","Furman":"Furman Paladins","Merrimack":"Merrimack Warriors","UAlbany":"Albany Great Danes","Eastern Illinois":"Eastern Illinois Panthers","Arkansas-Pine Bluff":"Arkansas-Pine Bluff Golden Lions","Bethune-Cookman":"Bethune-Cookman Wildcats"};
+function norm(x){return String(x).normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]/g,"")}
 function teamMatch(ours,api){const al=ALIAS[ours];if(al)return norm(api)===norm(al)||norm(api).startsWith(norm(al));const o=norm(ours),a=norm(api);return a===o||a.startsWith(o)}
 function setStatus(msg,cls){const el=document.getElementById("refreshStatus");el.textContent=msg;el.className="st "+(cls||"")}
 async function refreshOdds(){
@@ -839,7 +934,7 @@ async function refreshOdds(){
       const k=et.getFullYear()+"-"+pad(et.getMonth()+1)+"-"+pad(et.getDate())+"T"+pad(et.getHours())+":"+pad(et.getMinutes());
       const m=-sAvg;const ng={id:1000+G.length,lg,k,a:shortName(ev.away_team),h:shortName(ev.home_team),s:sAvg,t:tAvg,books,p:[Math.max(0,Math.round((tAvg-m)/2)),Math.max(0,Math.round((tAvg+m)/2))],ag:[0,0],added:true,
         note:"Added from the live odds feed. Projection is market-derived (spread sets the margin, total sets the scoring level); no expert or prediction-market lean has been layered on."};
-      if(G.some(x=>x.lg===lg&&x.a===ng.a&&x.h===ng.h))continue;
+      if(G.some(x=>x.lg===lg&&(matchKey(x)===matchKey(ng)||(teamMatch(x.a,ev.away_team)&&teamMatch(x.h,ev.home_team)))))continue;
       G.push(ng);added++;
     }
   }
@@ -877,7 +972,7 @@ async function refreshOdds(){
   // refresh counter → rebuild reminder
   let cnt=0;try{cnt=(+localStorage.getItem("refreshCount")||0)+1;localStorage.setItem("refreshCount",cnt)}catch(e){}
   if(cnt%10===0){const b=document.getElementById("rebuildNote");b.style.display="block"}
-  reanalyze();render();btn.disabled=false;
+  dedupeGames();reanalyze();render();btn.disabled=false;
   const when=new Date().toLocaleString("en-US",{month:"short",day:"numeric",hour:"numeric",minute:"2-digit"});
   try{localStorage.setItem("oddsSnapshot",JSON.stringify({when,G}))}catch(e){}
   if(matched||added||espnN)setStatus("Odds API: "+matched+" game"+(matched===1?"":"s")+" updated"+(added?", "+added+" added":"")+" · ESPN: "+espnN+" lines, "+fpiN+" FPI projections · "+when+(remaining?" · "+remaining+" Odds API requests left":"")+(errors.length?" · "+errors.join("; "):"")+". Games on neither feed keep the built-in lines.","ok");
@@ -886,13 +981,17 @@ async function refreshOdds(){
 document.getElementById("refreshBtn").addEventListener("click",refreshOdds);
 document.getElementById("keyToggle").addEventListener("click",e=>{e.preventDefault();const r=document.getElementById("keyRow");r.style.display=r.style.display==="flex"?"none":"flex"});
 try{const k=localStorage.getItem("oddsApiKey");if(k)document.getElementById("apiKey").value=k;
-  const snap=JSON.parse(localStorage.getItem("oddsSnapshot")||"null");if(snap&&snap.G){snap.G.forEach(sg=>{const g=G.find(x=>x.id===sg.id);if(g)Object.assign(g,sg);else G.push(sg)});reanalyze();setStatus("Showing lines from your last refresh ("+snap.when+"). Click Refresh all odds for the latest.","ok")}}catch(e){}
+  const snap=JSON.parse(localStorage.getItem("oddsSnapshot")||"null");if(snap&&snap.G){snap.G.forEach(sg=>{const g=G.find(x=>x.id===sg.id);if(g)Object.assign(g,sg);else G.push(sg)});dedupeGames();reanalyze();setStatus("Showing lines from your last refresh ("+snap.when+"). Click Refresh all odds for the latest.","ok")}}catch(e){}
 document.getElementById("sortSel").addEventListener("change",e=>{sort=e.target.value;render()});
 document.getElementById("winSel").addEventListener("change",e=>{const [a,b]=e.target.value.split("-").map(Number);winFrom=a;winTo=b;render()});
 document.getElementById("fbsOnlyChk").addEventListener("change",e=>{hideFcs=e.target.checked;render()});
 document.getElementById("q").addEventListener("input",e=>{query=e.target.value.trim();render()});
 document.getElementById("expandAll").addEventListener("click",e=>{const rows=[...document.querySelectorAll(".row")];const open=rows.some(r=>!r.classList.contains("open"));rows.forEach(r=>r.classList.toggle("open",open));e.target.textContent=open?"Collapse all":"Expand all"});
 document.getElementById("buildBtn").addEventListener("click",buildParlay);
+document.getElementById("buildBtn2").addEventListener("click",buildParlay);
+["detailChk","detailChk2"].forEach(id=>document.getElementById(id).addEventListener("change",e=>{legDetail=e.target.checked;document.getElementById("detailChk").checked=legDetail;document.getElementById("detailChk2").checked=legDetail;renderSlip()}));
+document.getElementById("clearBtn2").addEventListener("click",()=>{slip.length=0;render()});
+document.getElementById("hcToggle").addEventListener("click",e=>{const d=document.getElementById("hcInline");const open=d.style.display==="none";d.style.display=open?"block":"none";e.target.textContent=open?"High-confidence board ▴":"High-confidence board ▾";renderHC()});
 document.getElementById("clearBtn").addEventListener("click",()=>{slip.length=0;render()});
 document.getElementById("hcMarket").addEventListener("change",renderHC);
 document.getElementById("hcN").addEventListener("change",renderHC);
